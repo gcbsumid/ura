@@ -1,19 +1,16 @@
-Name: 
-Student Number: 
-User-id: 
-Assignment: 
+URA Project 
+===========
 
-The final executable was compiled on this machine: 
+Updating CS488 Assignment to use Qt and Modern OpenGL
 
-How to invoke my program: 
+How to compile:
+    cd A*/src
+    qmake src.pro
+    make
+    ./program
 
+To install Qmake and Qt libraries:
+    sudo install qt5-qmake  qt5-default libqt5opengl5-dev
 
-How to use my extra features: 
-
-
-I have created the following data files, which are in the data directory:
-
-
-My program assumes the following: 
-
-
+Assumes the following:
+    qmake and qt are installed
