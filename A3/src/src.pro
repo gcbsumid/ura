@@ -16,10 +16,14 @@ HEADERS += algebra.hpp \
            material.hpp \
            primitive.hpp \
            scene.hpp \
-           scene_lua.hpp
+           scene_lua.hpp \
+           AppWindow.hpp \
+           Viewer.hpp
 SOURCES += algebra.cpp \
            main.cpp \
            material.cpp \
            primitive.cpp \
            scene.cpp \
-           scene_lua.cpp
+           scene_lua.cpp \
+           AppWindow.cpp \ 
+           Viewer.cpp

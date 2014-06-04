@@ -2,7 +2,7 @@
 #include <QDesktopWidget>
 #include <string>
 #include <iostream>
-// #include "AppWindow.hpp"
+#include "AppWindow.hpp"
 #include "scene_lua.hpp"
 
 int main(int argc, char** argv)
@@ -21,19 +21,18 @@ int main(int argc, char** argv)
         return 1;
     }
  
+    AppWindow window;
+    window.resize(window.sizeHint());
+    int desktopArea = QApplication::desktop()->width() * 
+                      QApplication::desktop()->height();
 
-    // AppWindow window;
-    // window.resize(window.sizeHint());
-    // int desktopArea = QApplication::desktop()->width() * 
-    //                   QApplication::desktop()->height();
+    int widgetArea = window.width() * window.height();
 
-    // int widgetArea = window.width() * window.height();
-
-    // if (((float)widgetArea / (float) desktopArea) < 0.75f) {
-    //     window.show();
-    // } else {
-    //     window.showMaximized();
-    // }
+    if (((float)widgetArea / (float) desktopArea) < 0.75f) {
+        window.show();
+    } else {
+        window.showMaximized();
+    }
 
     return app.exec();
 }
