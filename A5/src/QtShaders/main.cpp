@@ -2,24 +2,25 @@
  *
  * File :  main.cpp
  *
- * Author : Tiberiu Popa
- *  	    J. Alexander Clarke
- * Date   : June 18th, 2002
+ * Author : Christian Sumido
+ * Date   : June 21st, 2014
  *
  * Modified:
  *
- * Purpose: Simple OpenGL program to illustrate the use of GLui with OpenGL and SDL for sound only
+ * Purpose: Simple OpenGL program to illustrate the use of Modern OpenGL with Qt
  *
  * ****************************************************************/
 #include <QApplication>
 #include <QDesktopWidget>
+#include <GL/glut.h>
 #include "AppWindow.hpp"
 
 //-------------------------------------------------------------------
 // main 
 //-------------------------------------------------------------------
 int main(int argc, char** argv){
-    
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     QApplication app(argc, argv);
 
     AppWindow window;

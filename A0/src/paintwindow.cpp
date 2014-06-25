@@ -40,6 +40,16 @@ void PaintWindow::createMenu() {
     drawRectangleAct->setStatusTip(tr("Draws a rectangle"));
     connect(drawRectangleAct, SIGNAL(triggered()), this, SLOT(set_rect()));
 
+    drawLineAct->setCheckable(true);
+    drawOvalAct->setCheckable(true);
+    drawRectangleAct->setCheckable(true);  
+
+    QActionGroup* group = new QActionGroup(this);
+    drawLineAct->setActionGroup(group);
+    drawOvalAct->setActionGroup(group);
+    drawRectangleAct->setActionGroup(group);
+    drawLineAct->toggle();
+
     m_menu_tools->addAction(drawLineAct);
     m_menu_tools->addAction(drawOvalAct);
     m_menu_tools->addAction(drawRectangleAct);

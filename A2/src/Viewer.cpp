@@ -49,7 +49,7 @@ void Viewer::initializeGL() {
 void Viewer::paintGL() {
     // Here is where your drawing code should go.
     draw_init(width(), height());
-  
+    
     /* A few of lines are drawn below to show how it's done. */
     set_colour(Colour(0.1, 0.1, 0.1));
 

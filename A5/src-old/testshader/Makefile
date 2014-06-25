@@ -1,7 +1,7 @@
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDS = $(SOURCES:.cpp=.d)
-LDFLAGS = -lglut -lGLEW -lGL -lGLU
+LDFLAGS = -lglut -lGLEW
 CXXFLAGS = -g -W -Wall
 CXXFLAGS += $(DEBUGFLAGS)
 CXX = g++
