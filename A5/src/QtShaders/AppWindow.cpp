@@ -25,7 +25,7 @@ AppWindow::AppWindow(QWidget *parent)
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1000/30    );
+    timer->start(1000/30);
 }
 
 AppWindow::~AppWindow() {
