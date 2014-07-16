@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -W -Wall -g -O2 -std=c++0x -Wall -W -D_REENTRANT -fPI
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I. -I/usr/include/qt5 -I/usr/include/qt5/QtOpenGL -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lGLU -lGLEW -lQt5OpenGL -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lGLU -lGLEW -lQt5OpenGL -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -201,6 +201,7 @@ Makefile: src.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		src.pro \
+		/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
@@ -262,6 +263,7 @@ Makefile: src.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 src.pro:
+/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
@@ -417,20 +419,39 @@ moc_AppWindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/QAction \
 		Viewer.hpp \
-		/usr/include/qt5/QtGui/QOpenGLBuffer \
-		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtOpenGL/QGLWidget \
+		/usr/include/qt5/QtOpenGL/qgl.h \
 		/usr/include/qt5/QtGui/qopengl.h \
 		/usr/include/qt5/QtCore/qt_windows.h \
 		/usr/include/qt5/QtGui/qopengles2ext.h \
 		/usr/include/qt5/QtGui/qopenglext.h \
+		/usr/include/qt5/QtGui/qpaintengine.h \
+		/usr/include/qt5/QtGui/qpainter.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtOpenGL/qglcolormap.h \
+		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
+		/usr/include/qt5/QtGui/QSurfaceFormat \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
 		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
 		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
 		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
 		AppWindow.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include AppWindow.hpp -o moc_AppWindow.cpp
 
-moc_Viewer.cpp: /usr/include/qt5/QtGui/QOpenGLBuffer \
-		/usr/include/qt5/QtGui/qopenglbuffer.h \
+moc_Viewer.cpp: /usr/include/qt5/QtOpenGL/QGLWidget \
+		/usr/include/qt5/QtOpenGL/qgl.h \
+		/usr/include/qt5/QtGui/qopengl.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
 		/usr/include/qt5/QtCore/qfeatures.h \
@@ -467,18 +488,16 @@ moc_Viewer.cpp: /usr/include/qt5/QtGui/QOpenGLBuffer \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtGui/qopengl.h \
 		/usr/include/qt5/QtCore/qt_windows.h \
 		/usr/include/qt5/QtGui/qopengles2ext.h \
 		/usr/include/qt5/QtGui/qopenglext.h \
-		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
-		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
-		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtCore/qobjectdefs.h \
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qbytearray.h \
@@ -489,11 +508,81 @@ moc_Viewer.cpp: /usr/include/qt5/QtGui/QOpenGLBuffer \
 		/usr/include/qt5/QtCore/qalgorithms.h \
 		/usr/include/qt5/QtCore/qiterator.h \
 		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
 		/usr/include/qt5/QtCore/qmetatype.h \
 		/usr/include/qt5/QtCore/qvarlengtharray.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qpaintengine.h \
+		/usr/include/qt5/QtGui/qpainter.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtOpenGL/qglcolormap.h \
+		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
+		/usr/include/qt5/QtGui/QSurfaceFormat \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
 		Viewer.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Viewer.hpp -o moc_Viewer.cpp
 
@@ -639,15 +728,33 @@ main.o: main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/QAction \
 		Viewer.hpp \
-		/usr/include/qt5/QtGui/QOpenGLBuffer \
-		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtOpenGL/QGLWidget \
+		/usr/include/qt5/QtOpenGL/qgl.h \
 		/usr/include/qt5/QtGui/qopengl.h \
 		/usr/include/qt5/QtCore/qt_windows.h \
 		/usr/include/qt5/QtGui/qopengles2ext.h \
 		/usr/include/qt5/QtGui/qopenglext.h \
+		/usr/include/qt5/QtGui/qpaintengine.h \
+		/usr/include/qt5/QtGui/qpainter.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtOpenGL/qglcolormap.h \
+		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
+		/usr/include/qt5/QtGui/QSurfaceFormat \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
 		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
 		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
-		/usr/include/qt5/QtCore/QObject
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtGui/QMatrix4x4
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 AppWindow.o: AppWindow.cpp /usr/include/qt5/QtWidgets/QtWidgets \
@@ -1086,12 +1193,19 @@ AppWindow.o: AppWindow.cpp /usr/include/qt5/QtWidgets/QtWidgets \
 		/usr/include/qt5/QtWidgets/qtoolbox.h \
 		/usr/include/qt5/QtWidgets/qtoolbutton.h \
 		/usr/include/qt5/QtWidgets/qtwidgetsversion.h \
+		/usr/include/qt5/QtOpenGL/QGLFormat \
+		/usr/include/qt5/QtOpenGL/qgl.h \
+		/usr/include/qt5/QtOpenGL/qglcolormap.h \
+		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
 		AppWindow.hpp \
 		/usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/QMenuBar \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/QAction \
 		Viewer.hpp \
+		/usr/include/qt5/QtOpenGL/QGLWidget \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
 		/usr/include/qt5/QtGui/QOpenGLBuffer \
 		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AppWindow.o AppWindow.cpp
@@ -1532,7 +1646,20 @@ Viewer.o: Viewer.cpp /usr/include/qt5/QtWidgets/QtWidgets \
 		/usr/include/qt5/QtWidgets/qtoolbox.h \
 		/usr/include/qt5/QtWidgets/qtoolbutton.h \
 		/usr/include/qt5/QtWidgets/qtwidgetsversion.h \
+		/usr/include/qt5/QtOpenGL/QtOpenGL \
+		/usr/include/qt5/QtOpenGL/QtOpenGLDepends \
+		/usr/include/qt5/QtOpenGL/qgl.h \
+		/usr/include/qt5/QtOpenGL/qglcolormap.h \
+		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
+		/usr/include/qt5/QtOpenGL/qglbuffer.h \
+		/usr/include/qt5/QtOpenGL/qglframebufferobject.h \
+		/usr/include/qt5/QtOpenGL/qglfunctions.h \
+		/usr/include/qt5/QtOpenGL/qglpixelbuffer.h \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		Viewer.hpp \
+		/usr/include/qt5/QtOpenGL/QGLWidget \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
 		/usr/include/qt5/QtGui/QOpenGLBuffer \
 		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Viewer.o Viewer.cpp
