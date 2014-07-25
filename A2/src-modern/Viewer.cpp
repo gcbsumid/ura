@@ -2,8 +2,10 @@
 #include <QtOpenGL>
 #include <iostream>
 #include <cmath>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "Viewer.hpp"
-#include "draw.hpp"
+// #include "draw.hpp"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE 0x809D
@@ -101,32 +103,31 @@ void Viewer::initializeGL() {
         return;
     }
 
-    mVertexBufferObject.allocate(triangleData, 3 * 3 * sizeof(float));
-
     mProgram.bind();
 
     mProgram.enableAttributeArray("vert");
     mProgram.setAttributeBuffer("vert", GL_FLOAT, 0, 3);
+
+    mColorLocation = mProgram.uniformLocation("frag_color");
 }
 
 void Viewer::paintGL() {    
+    draw_init();
+
     // Here is where your drawing code should go.
-    draw_init(width(), height());
     
     /* A few of lines are drawn below to show how it's done. */
-    set_colour(Colour(0.1, 0.1, 0.1));
+    set_colour(QColor(1.0, 1.0, 1.0));
 
-    draw_line(Point2D(0.1*width(), 0.1*height()), 
-              Point2D(0.9*width(), 0.9*height()));
-    draw_line(Point2D(0.9*width(), 0.1*height()),
-              Point2D(0.1*width(), 0.9*height()));
+    draw_line(QVector2D(-0.9, -0.9), 
+              QVector2D(0.9, 0.9));
+    draw_line(QVector2D(0.9, -0.9),
+              QVector2D(-0.9, 0.9));
 
-    draw_line(Point2D(0.1*width(), 0.1*height()),
-              Point2D(0.2*width(), 0.1*height()));
-    draw_line(Point2D(0.1*width(), 0.1*height()), 
-              Point2D(0.1*width(), 0.2*height()));
-
-    draw_complete();
+    draw_line(QVector2D(-0.9, -0.9),
+              QVector2D(-0.4, -0.9));
+    draw_line(QVector2D(-0.9, -0.9), 
+              QVector2D(-0.9, -0.4));
 }
 
 void Viewer::mousePressEvent ( QMouseEvent * event ) {
@@ -141,3 +142,39 @@ void Viewer::mouseMoveEvent ( QMouseEvent * event ) {
     std::cerr << "Stub: Motion at " << event->x() << ", " << event->y() << std::endl;
 }
 
+// Drawing Functions
+// ******************* Do Not Touch ************************ // 
+
+void Viewer::draw_line(const QVector2D& p1, const QVector2D& p2) {
+
+  const GLfloat lineVertices[] = {
+    p1.x(), p1.y(), 1.0,
+    p2.x(), p2.y(), 1.0
+  };
+
+  mVertexBufferObject.allocate(lineVertices, 3 * 2 * sizeof(float));
+
+  glDrawArrays(GL_LINES, 0, 2);
+}
+
+void Viewer::set_colour(const QColor& col)
+{
+  mProgram.setUniformValue(mColorLocation, col.red(), col.green(), col.blue());
+}
+
+void Viewer::draw_init() {
+    glClearColor(0.7, 0.7, 0.7, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0.0, (double)width(), 0.0, (double)height());
+    glViewport(0, 0, width(), height());
+
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
+    glEnable(GL_LINE_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glLineWidth(1.0);
+}

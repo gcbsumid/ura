@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -W -Wall -g -O2 -std=c++0x -Wall -W -D_REENTRANT -fPI
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I. -I/usr/include/qt5 -I/usr/include/qt5/QtOpenGL -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lGLU -lQt5OpenGL -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lGLU -lGLEW -lQt5OpenGL -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -47,13 +47,11 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		AppWindow.cpp \
-		Viewer.cpp \
-		draw.cpp moc_AppWindow.cpp \
+		Viewer.cpp moc_AppWindow.cpp \
 		moc_Viewer.cpp
 OBJECTS       = main.o \
 		AppWindow.o \
 		Viewer.o \
-		draw.o \
 		moc_AppWindow.o \
 		moc_Viewer.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -276,7 +274,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/a21.0.0 || mkdir -p .tmp/a21.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/a21.0.0/ && $(COPY_FILE) --parents AppWindow.hpp Viewer.hpp draw.hpp .tmp/a21.0.0/ && $(COPY_FILE) --parents main.cpp AppWindow.cpp Viewer.cpp draw.cpp .tmp/a21.0.0/ && (cd `dirname .tmp/a21.0.0` && $(TAR) a21.0.0.tar a21.0.0 && $(COMPRESS) a21.0.0.tar) && $(MOVE) `dirname .tmp/a21.0.0`/a21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/a21.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/a21.0.0/ && $(COPY_FILE) --parents AppWindow.hpp Viewer.hpp .tmp/a21.0.0/ && $(COPY_FILE) --parents main.cpp AppWindow.cpp Viewer.cpp .tmp/a21.0.0/ && (cd `dirname .tmp/a21.0.0` && $(TAR) a21.0.0.tar a21.0.0 && $(COMPRESS) a21.0.0.tar) && $(MOVE) `dirname .tmp/a21.0.0`/a21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/a21.0.0
 
 
 clean:compiler_clean 
@@ -435,7 +433,22 @@ moc_AppWindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qsurfaceformat.h \
-		algebra.hpp \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
+		/usr/include/qt5/QtCore/QtGlobal \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtOpenGL/QGLBuffer \
+		/usr/include/qt5/QtOpenGL/qglbuffer.h \
 		AppWindow.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include AppWindow.hpp -o moc_AppWindow.cpp
 
@@ -560,7 +573,22 @@ moc_Viewer.cpp: /usr/include/qt5/QtOpenGL/QGLWidget \
 		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qsurfaceformat.h \
-		algebra.hpp \
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
+		/usr/include/qt5/QtCore/QtGlobal \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtOpenGL/QGLBuffer \
+		/usr/include/qt5/QtOpenGL/qglbuffer.h \
 		Viewer.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Viewer.hpp -o moc_Viewer.cpp
 
@@ -720,7 +748,22 @@ main.o: main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
 		/usr/include/qt5/QtGui/QSurfaceFormat \
 		/usr/include/qt5/QtGui/qsurfaceformat.h \
-		algebra.hpp
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtGui/qvector3d.h \
+		/usr/include/qt5/QtGui/qvector4d.h \
+		/usr/include/qt5/QtGui/qmatrix4x4.h \
+		/usr/include/qt5/QtGui/qquaternion.h \
+		/usr/include/qt5/QtGui/qgenericmatrix.h \
+		/usr/include/qt5/QtGui/QMatrix4x4 \
+		/usr/include/qt5/QtCore/QtGlobal \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/qopenglbuffer.h \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtGui/qopenglvertexarrayobject.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtOpenGL/QGLBuffer \
+		/usr/include/qt5/QtOpenGL/qglbuffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 AppWindow.o: AppWindow.cpp /usr/include/qt5/QtWidgets/QtWidgets \
@@ -1169,7 +1212,13 @@ AppWindow.o: AppWindow.cpp /usr/include/qt5/QtWidgets/QtWidgets \
 		/usr/include/qt5/QtOpenGL/qgl.h \
 		/usr/include/qt5/QtOpenGL/qglcolormap.h \
 		/usr/include/qt5/QtOpenGL/qtopenglglobal.h \
-		algebra.hpp
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtOpenGL/qglshaderprogram.h \
+		/usr/include/qt5/QtCore/QtGlobal \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtOpenGL/QGLBuffer \
+		/usr/include/qt5/QtOpenGL/qglbuffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AppWindow.o AppWindow.cpp
 
 Viewer.o: Viewer.cpp /usr/include/qt5/QtWidgets/QtWidgets \
@@ -1621,13 +1670,12 @@ Viewer.o: Viewer.cpp /usr/include/qt5/QtWidgets/QtWidgets \
 		/usr/include/qt5/QtOpenGL/qtopenglversion.h \
 		Viewer.hpp \
 		/usr/include/qt5/QtOpenGL/QGLWidget \
-		algebra.hpp \
-		draw.hpp
+		/usr/include/qt5/QtOpenGL/QGLShaderProgram \
+		/usr/include/qt5/QtCore/QtGlobal \
+		/usr/include/qt5/QtGui/QOpenGLBuffer \
+		/usr/include/qt5/QtGui/QOpenGLVertexArrayObject \
+		/usr/include/qt5/QtOpenGL/QGLBuffer
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Viewer.o Viewer.cpp
-
-draw.o: draw.cpp draw.hpp \
-		algebra.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o draw.o draw.cpp
 
 moc_AppWindow.o: moc_AppWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_AppWindow.o moc_AppWindow.cpp

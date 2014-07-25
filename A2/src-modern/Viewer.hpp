@@ -2,7 +2,17 @@
 #define CS488_VIEWER_HPP
 
 #include <QGLWidget>
-#include "algebra.hpp"
+#include <QGLShaderProgram>
+#include <QMatrix4x4>
+#include <QtGlobal>
+// #include "algebra.hpp"
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
+#else 
+#include <QGLBuffer>
+#endif
 
 class Viewer : public QGLWidget {
     
@@ -44,7 +54,16 @@ protected:
     virtual void mouseReleaseEvent ( QMouseEvent * event );
     // Called when the mouse moves
     virtual void mouseMoveEvent ( QMouseEvent * event );
+ 
+    // Draw a line -- call draw_init first!
+    void draw_line(const QVector2D& p1, const QVector2D& p2) ;
 
+    // Set the current colour
+    void set_colour(const QColor& col);
+
+    // Call this before you begin drawing. Width and height are the width
+    // and height of the GL window.
+    void draw_init();
 private:
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
@@ -54,13 +73,13 @@ private:
     QGLBuffer mVertexBufferObject;
 #endif
 
-    int mVertexLocation;
-    int mMvpMatrixLocation;
     QGLShaderProgram mProgram;
+
+    int mColorLocation;
     
     // *** Fill me in ***
     // You will want to declare some more matrices here
-    Matrix4x4 m_projection;    
+    QMatrix4x4 m_projection;    
 };
 
 #endif
