@@ -10,7 +10,13 @@ How to compile:
     ./program
 
 To install Qmake and Qt libraries:
-    sudo install qt5-qmake  qt5-default libqt5opengl5-dev
+    sudo apt-get install qt5-qmake  qt5-default libqt5opengl5-dev
 
 Assumes the following:
     qmake and qt are installed
+
+Useful links:
+    http://qt-project.org/doc/
+    http://www.opengl-tutorial.org/
+    http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/ (For clicking)
+    http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-an-opengl-hack/ (clicking opengl hack)
