@@ -5,9 +5,14 @@
 AppWindow::AppWindow() {
     setWindowTitle("488 Assignment Two");
 
+    QGLFormat glFormat;
+    glFormat.setVersion(3,3);
+    glFormat.setProfile(QGLFormat::CoreProfile);
+    glFormat.setSampleBuffers(true);
+
     QVBoxLayout *layout = new QVBoxLayout;
     // m_menubar = new QMenuBar;
-    m_viewer = new Viewer(this);
+    m_viewer = new Viewer(glFormat, this);
     layout->addWidget(m_viewer);
     setCentralWidget(new QWidget);
     centralWidget()->setLayout(layout);

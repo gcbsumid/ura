@@ -13,8 +13,14 @@
 
 using namespace std;
 
-Viewer::Viewer(QWidget *parent) 
-    : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
+Viewer::Viewer(const QGLFormat& format, QWidget *parent) 
+    : QGLWidget(format, parent) 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
+    , mVertexBufferObject(QOpenGLBuffer::VertexBuffer)
+    , mVertexArrayObject(this)
+#else 
+    , mVertexBufferObject(QGLBuffer::VertexBuffer)
+#endif
 {
     // Nothing to do here right now.
 }

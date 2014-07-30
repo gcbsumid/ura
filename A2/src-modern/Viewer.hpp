@@ -19,7 +19,7 @@ class Viewer : public QGLWidget {
     Q_OBJECT
 
 public:
-    Viewer(QWidget *parent = 0);
+    Viewer(const QGLFormat& format, QWidget *parent = 0);
     virtual ~Viewer();
     
     QSize minimumSizeHint() const;

@@ -134,7 +134,7 @@ void Viewer::paintGL() {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
     mVertexArrayObject.bind();
 #else 
-    QGLBuffer mVertexBufferObject;
+    QGLBuffer mVertexBufferObject.bind();
 #endif    
     
 
