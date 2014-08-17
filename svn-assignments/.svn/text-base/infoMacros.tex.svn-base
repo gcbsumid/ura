@@ -1,0 +1,97 @@
+\newcommand{\RCSId}{{$Id:}}
+\newcommand{\RCSdollar}{{$}}
+\newcommand{\TermLong}{{Winter 2006}}
+\newcommand{\TermShort}{{W06}}
+\newcommand{\OrganizationA}{{University of Waterloo}}
+\newcommand{\OrganizationB}{{School of Computer Science}}
+\newcommand{\OrganizationC}{{Computer Graphics Lab}}
+\newcommand{\CourseNumber}{{CS488/688}}
+\newcommand{\CourseGradNumber}{{CS688}}
+\newcommand{\CourseUndergradNumber}{{CS488}}
+\newcommand{\CourseArchive}{{ftp://ftp.cgl.uwaterloo.ca/pub/courses/cs488/}}
+\newcommand{\CourseBox}{{None}}
+\newcommand{\CourseTextLong}{{Hearn and Baker, Computer Graphics C Version, 3rd ed., Prentice Hall}}
+\newcommand{\CourseTextShort}{{Hearn and Baker, Computer Graphics}}
+\newcommand{\CourseTextAuthors}{{D. Hearn and M.P. Baker}}
+\newcommand{\CourseTextTitle}{{Computer Graphics, 3rd ed.}}
+\newcommand{\CourseTextPub}{{Prentice Hall}}
+\newcommand{\AltTextLong}{{Jim Blinn, Jim Blinn's Corner: A Trip down the Graphics Pipeline}}
+\newcommand{\AltTextShort}{{Blinn, Jim Blinn's Corner}}
+\newcommand{\AltTextAuthors}{{Blinn}}
+\newcommand{\AltTextTitle}{{Jim Blinn's Corner}}
+\newcommand{\AltTextPub}{{Morgan Kaufmann}}
+\newcommand{\OpenGLGuideLong}{{Jackie Neider, Tom Davis, Mason Woo, OpenGL Architecture Review Board, OpenGL Programming Guide, Addison Wesley (and Silicon Graphics)}}
+\newcommand{\OpenGLGuideShort}{{OpenGL Programming Guide}}
+\newcommand{\OpenGLGuideAuthors}{{Jackie Neider, Tom Davis, Mason Woo, OpenGL Architecture Review Board}}
+\newcommand{\OpenGLGuideTitle}{{OpenGL Programming Guide}}
+\newcommand{\OpenGLGuidePub}{{Addison Wesley (and Silicon Graphics)}}
+\newcommand{\ScriptLangGuideLong}{{Roberto Ierusalimschy, Programming in Lua}}
+\newcommand{\ScriptLangGuideShort}{{Lua}}
+\newcommand{\ScriptLangGuideAuthors}{{Roberto Ierusalimschy}}
+\newcommand{\ScriptLangGuideTitle}{{Programming in Lua}}
+\newcommand{\ScriptLangGuidePub}{{Lua.org}}
+\newcommand{\CourseTitle}{{Introduction to Computer Graphics}}
+\newcommand{\CourseNews}{{uw.cs.cs488}}
+\newcommand{\CourseURL}{{http://www.student.cs.uwaterloo.ca/{\textasciitilde}cs488/}}
+\newcommand{\CourseEmail}{{cs488@cgl.uwaterloo.ca}}
+\newcommand{\CourseEmailSubj}{{cg:}}
+\newcommand{\CourseData}{{/u/gr/cs488}}
+\newcommand{\CourseUserid}{{cs488}}
+\newcommand{\CourseGroup}{{cs488}}
+\newcommand{\CourseGradGroup}{{cs688}}
+\newcommand{\GroupTitle}{{Graphics Courses}}
+\newcommand{\GroupUserid}{{gr@cgl.uwaterloo.ca}}
+\newcommand{\GroupURL}{{http://www.cgl.uwaterloo.ca/{\textasciitilde}gr}}
+\newcommand{\LectureTimes}{{11:30-12:20 MWF, 1:30-2:20 MWF}}
+\newcommand{\LectureRoom}{{MC4042}}
+\newcommand{\LabRoom}{{MC6055}}
+\newcommand{\LabPhone}{{x6560}}
+\newcommand{\CourseLabRoom}{{MC6055}}
+\newcommand{\InstructorLong}{{Craig S. Kaplan}}
+\newcommand{\InstructorShort}{{Kaplan}}
+\newcommand{\InstructorOffice}{{DC2110}}
+\newcommand{\InstructorPhone}{{x4589}}
+\newcommand{\InstructorURL}{{http://www.cgl.uwaterloo.ca/{\textasciitilde}csk/}}
+\newcommand{\InstructorEmail}{{csk@cgl.uwaterloo.ca}}
+\newcommand{\InstructorOfficeHours}{{TBA}}
+\newcommand{\InstructorSep}{,~}
+\newcommand{\InstructorbLong}{{Stephen Mann}}
+\newcommand{\InstructorbShort}{{Mann}}
+\newcommand{\InstructorbOffice}{{DC 2106}}
+\newcommand{\InstructorbPhone}{{x4526}}
+\newcommand{\InstructorbURL}{{http://www.cgl.uwaterloo.ca/{\textasciitilde}smann/}}
+\newcommand{\InstructorbEmail}{{smann@uwaterloo.ca}}
+\newcommand{\InstructorbOfficeHours}{{2:30-3:30 Monday}}
+\newcommand{\TAaLong}{{Paul Church}}
+\newcommand{\TAaShort}{{Paul}}
+\newcommand{\TAaOffice}{{DC2303 }}
+\newcommand{\TAaPhone}{{x4548}}
+\newcommand{\TAaURL}{{,}}
+\newcommand{\TAaEmail}{{pchurch@cs.uwaterloo.ca}}
+\newcommand{\TAaOfficeHours}{{TBA}}
+\newcommand{\TAbSep}{,~}
+\newcommand{\TAbLong}{{Gilad Israeli}}
+\newcommand{\TAbShort}{{Gilad}}
+\newcommand{\TAbOffice}{{DC2303}}
+\newcommand{\TAbPhone}{{x4548}}
+\newcommand{\TAbURL}{{http://www.cs.uwaterloo.ca/{\textasciitilde}gisraeli/}}
+\newcommand{\TAbEmail}{{gisraeli@cgl.uwaterloo.ca}}
+\newcommand{\TAbOfficeHours}{{TBA}}
+\newcommand{\TAcSep}{,~}
+\newcommand{\TAcLong}{{Simon Clift}}
+\newcommand{\TAcShort}{{Simon}}
+\newcommand{\TAcOffice}{{DC2303}}
+\newcommand{\TAcPhone}{{x4548}}
+\newcommand{\TAcURL}{{,}}
+\newcommand{\TAcEmail}{{ssclift@math.uwaterloo.ca}}
+\newcommand{\TAcOfficeHours}{{TBA}}
+\newcommand{\ExtraOfficeHours}{{TBA}}
+\newcommand{\CodeFreezeTime}{{11:00am}}
+\newcommand{\AzeroDeadline}{{Wednesday, January 11 [Week 2]}}
+\newcommand{\AoneDeadline}{{Wednesday, January 18 [Week 3]}}
+\newcommand{\AtwoDeadline}{{Wednesday, February 1 [Week 5]}}
+\newcommand{\AthreeDeadline}{{Wednesday, February 15 [Week 7]}}
+\newcommand{\MidtermDate}{{Friday, February 20 [Week 8] <br> (tentative) }}
+\newcommand{\AfourDeadline}{{Wednesday, March 8 [Week 10]}}
+\newcommand{\DemoDate}{{TBA}}
+\newcommand{\FinalDate}{{TBA}}

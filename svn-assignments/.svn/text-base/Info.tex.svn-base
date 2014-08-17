@@ -1,0 +1,140 @@
+\newcommand{\cglTermLong}{Fall 2001}
+\newcommand{\cglTermShort}{F01}
+
+\newcommand{\cglOrganization1}{University of Waterloo}
+\newcommand{\cglOrganization2}{Department of Computer Science}
+\newcommand{\cglOrganization3}{Computer Graphics Lab}
+
+\newcommand{\cglCourseNumber}{CS488/688}
+\newcommand{\cglCourseGradNumber}{CS688}
+\newcommand{\cglCourseUndergradNumber}{CS488}
+\newcommand{\cglCourseArchive}{\verb|ftp://ftp.cgl.uwaterloo.ca/pub/courses/cs488/|}
+
+\newcommand{\cglCourseBox}{None}
+
+\newcommand{\cglCourseTextLong}{Hearn and Baker, Computer Graphics, C Version, Prentice Hall}
+\newcommand{\cglCourseTextShort}{Hearn and Baker, Computer Graphics, C Version}
+\newcommand{\cglCourseTextAuthors}{Donald Hearn and M. Pauline Baker}
+\newcommand{\cglCourseTextTitle}{Computer Graphics, C Version}
+\newcommand{\cglCourseTextPub}{Prentice Hall}
+
+\newcommand{\cglAltTextLong}{Jim Blinn, Jim Blinn's Corner: A Trip down the Graphics Pipeline}
+\newcommand{\cglAltTextShort}{Blinn, Jim Blinn's Corner}
+\newcommand{\cglAltTextAuthors}{Blinn}
+\newcommand{\cglAltTextTitle}{Jim Blinn's Corner}
+\newcommand{\cglAltTextPub}{Morgan Kaufmann}
+
+\newcommand{\cglOpenGLGuideLong}{Jackie Neider, Tom Davis, Mason Woo, OpenGL Architecture Review Board, OpenGL Programming Guide, Addison Wesley (and Silicon Graphics)}
+\newcommand{\cglOpenGLGuideShort}{OpenGL Programming Guide}
+\newcommand{\cglOpenGLGuideAuthors}{Jackie Neider, Tom Davis, Mason Woo, OpenGL Architecture Review Board}
+\newcommand{\cglOpenGLGuideTitle}{OpenGL Programming Guide}
+\newcommand{\cglOpenGLGuidePub}{Addison Wesley (and Silicon Graphics)}
+
+\newcommand{\cglTclTkGuideLong}{Brent Welch, Practical Programming with TCL and TK, Prentice Hall}
+\newcommand{\cglTclTkGuideShort}{Welch, Tcl and Tk}
+\newcommand{\cglTclTkGuideAuthors}{Brent Welch}
+\newcommand{\cglTclTkGuideTitle}{Tcl and Tk}
+\newcommand{\cglTclTkGuidePub}{Prentice Hall}
+
+\newcommand{\cglCourseTitle}{Introduction to Computer Graphics}
+\newcommand{\cglCourseNews}{\verb|uw.cs.cs488|}
+\newcommand{\cglCourseURL}{\texttt{http://www.undergrad.math.uwaterloo.ca/{\char128}cs488/}}
+\newcommand{\cglCourseEmail}{\texttt{cs488{\char64}cgl.uwaterloo.ca}}
+\newcommand{\cglCourseData}{\texttt{/u/gr/cs488}}
+\newcommand{\cglCourseUserid}{\texttt{cs488}}
+\newcommand{\cglCourseGroup}{\verb|cs488|}
+\newcommand{\cglCourseGradGroup}{\verb|cs688|}
+
+\newcommand{\cglGroupTitle}{Graphics Courses}
+\newcommand{\cglGroupUserid}{\verb|gr@cgl.uwaterloo.ca|}
+\newcommand{\cglGroupURL}{\verb|http://www.cgl.uwaterloo.ca/~gr|}
+
+\newcommand{\cglLectureTimes}{11:30-12:50 TTh}
+\newcommand{\cglLectureRoom}{MC 2066}
+\newcommand{\cglLabRoom}{MC 6055}
+\newcommand{\cglLabPhone}{x6560}
+\newcommand{\cglCourseLabRoom}{MC 6055}
+
+\newcommand{\cglInstructorLong}{Michael McCool}
+\newcommand{\cglInstructorShort}{McCool}
+\newcommand{\cglInstructorOffice}{DC 2112}
+\newcommand{\cglInstructorPhone}{x3561}
+\newcommand{\cglInstructorURL}{\verb|http://www.cgl.uwaterloo.ca/~mmccool/|}
+\newcommand{\cglInstructorEmail}{\verb|mmccool@cgl.uwaterloo.ca|}
+\newcommand{\cglInstructorOfficeHours}{TBA}
+
+\newcommand{\cglInstructorbLong}{}
+\newcommand{\cglInstructorbShort}{} 	
+\newcommand{\cglInstructorbOffice}{} 	
+\newcommand{\cglInstructorbPhone}{} 	
+\newcommand{\cglInstructorbURL}{}		
+\newcommand{\cglInstructorbEmail}{}	
+\newcommand{\cglInstructorbOfficeHours}{}	
+
+\newcommand{\cglTAaLong}{Ricky Leung}
+\newcommand{\cglTAaShort}{Leung}
+\newcommand{\cglTAaOffice}{DC 2131/DC 2303}
+\newcommand{\cglTAaPhone}{x3352/x4548}
+\newcommand{\cglTAaURL}{\verb|http://www.cgl.uwaterloo.ca/~ryleung/|}
+\newcommand{\cglTAaEmail}{\verb|ryleung@cgl.uwaterloo.ca|}
+\newcommand{\cglTAaOfficeHours}{TBA}
+
+\newcommand{\cglTAbLong}{Wayne Olive}
+\newcommand{\cglTAbShort}{Olive}
+\newcommand{\cglTAbOffice}{DC 2114/DC 2303}
+\newcommand{\cglTAbPhone}{x4548}
+\newcommand{\cglTAbURL}{\verb|http://www.cgl.uwaterloo.ca/~wholive/|}
+\newcommand{\cglTAbEmail}{\verb|wholive@cgl.uwaterloo.ca|}
+\newcommand{\cglTAbOfficeHours}{TBA}
+
+\newcommand{\cglTAcLong}{Daniel Koch}
+\newcommand{\cglTAcShort}{Koch}
+\newcommand{\cglTAcOffice}{DC 2505/DC 2303}
+\newcommand{\cglTAcPhone}{x3400/x4548}
+\newcommand{\cglTAcURL}{\verb|http://www.cgl.uwaterloo.ca/~dgkoch/|}
+\newcommand{\cglTAcEmail}{\verb|dgkoch@cgl.uwaterloo.ca|}
+\newcommand{\cglTAcOfficeHours}{TBA}
+
+\newcommand{\cglTAdLong}{}                
+\newcommand{\cglTAdShort}{}              
+\newcommand{\cglTAdOffice}{}              
+\newcommand{\cglTAdPhone}{}               
+\newcommand{\cglTAdURL}{}                 
+\newcommand{\cglTAdEmail}{}               
+\newcommand{\cglTAdOfficeHours}{}         
+
+\newcommand{\cglExtraOfficeHours}{TBA}
+
+% Deadlines should be in the weeks shown
+
+\newcommand{\cglAzeroDeadlineWeek}{2}
+\newcommand{\cglAzeroDeadline}{Tuesday,  September 18 [Week \cglAzeroDeadlineWeek]}
+
+\newcommand{\cglAoneDeadlineWeek}{3}
+\newcommand{\cglAoneDeadline}{Tuesday,  September 25 [Week \cglAoneDeadlineWeek]}
+
+\newcommand{\cglAtwoDeadlineWeek}{5}
+\newcommand{\cglAtwoDeadline}{Tuesday,  October    9 [Week \cglAtwoDeadlineWeek]}
+
+\newcommand{\cglAthreeDeadlineWeek}{7}
+\newcommand{\cglAthreeDeadline}{Thursday, October   25 [Week \cglAthreeDeadlineWeek]}
+
+\newcommand{\cglMidtermWeek}{8}
+\newcommand{\cglMidtermDate}{Tuesday,  October   30 [Week \cglMidtermWeek]}
+
+\newcommand{\cglAfiveaDeadlineWeek}{9}
+\newcommand{\cglAfiveaDeadline}{Tuesday,  November   6 [Week \cglAfiveaDeadlineWeek]}
+
+\newcommand{\cglAfourDeadlineWeek}{9}
+\newcommand{\cglAfourDeadline}{Thursday, November   8 [Week \cglAfourDeadlineWeek]}
+
+\newcommand{\cglAfivebDeadlineWeek}{10}
+\newcommand{\cglAfivebDeadline}{Tuesday,  November  13 [Week \cglAfivebDeadlineWeek]}
+
+\newcommand{\cglAfivecDeadlineWeek}{13}
+\newcommand{\cglAfivecDeadline}{Monday,   December   3 [Week \cglAfivecDeadlineWeek]}
+
+\newcommand{\cglDemoWeek}{12}
+\newcommand{\cglDemoDate}{Thursday/Friday, November 29/30 [Week \cglDemoWeek]}
+
+\newcommand{\cglFinalDate}{TBA (between December 6 and 20)}

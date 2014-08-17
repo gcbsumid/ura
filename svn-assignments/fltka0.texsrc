@@ -1,0 +1,263 @@
+%\Chapter{Assignment 0}
+\iffalse
+\begin{quote}
+        {\sl 
+	``I want to work on Assignment 0.  I want to do some Tcl
+	programming---there's no thinking involved!''
+        } \\
+	\mbox{}\hfill -- The TA who developed this assignment
+\end{quote}
+\fi
+This assignment is due {\bf :A0Deadline:}.
+% , at the beginning of the lecture.
+\section{Topics}
+\begin{itemize}
+\item Familiarise you with the course computing environment.
+\item Ensure that your account(s) are set up properly.
+\item Provide exposure to Fltk.
+\item Provide practice in building/modifying a user interface.
+\item Give you a trial run at submitting an assignment.
+\end{itemize}
+
+\section{Summary}
+This assignment is optional.
+
+If you do not hand it in, you will not lose
+marks.  If you do hand it in, it will be marked in the normal way, but the
+mark will not be recorded.  
+Therefore, if you have any theologically unsound habits that
+will cost you marks or if your account is not set up correctly, you will
+have a chance to correct things before Assignment~1.   
+
+In past terms, over half the students who did not submit Assignment~0
+lost marks on Assignment~1 for setting up their account incorrectly
+or for submitting inadequate documentation.  These mistakes could have
+been avoided had these students completed Assignment~0.
+
+It is in your best interest to do this assignment.  
+You will gain some information and experience which will be
+useful for later assignments.  Thus, even if you do not
+choose to hand in Assignment~0, you will still eventually need to learn 
+what it covers before you can finish later assignments.
+
+Note also that the directions in this assignment are more explicit than
+in the remaining assignments.  In the future, the steps to follow will
+not be written as explicitly.
+
+\section{Statement}
+Do the following:
+\begin{enumerate}
+    \item
+	Set up your account.  To do this, login to a Linux or Unix
+	machine in the undergrad environment
+	and type ``{\tt /u/gr/cs488/bin/setup}''.
+	Observe that you now have
+	the following directory subtree in your home directory:
+	\begin{verbatim}
+       cs488/
+            handin/
+                A0/
+                    src/
+                    data/
+                A1/
+                    src/
+                    data/
+                A2/
+                    src/
+                    data/
+                A3/
+                    src/
+                    data/
+                A4/
+                    src/
+                    data/
+                A5/
+                    src/
+                    data/
+	\end{verbatim}
+
+	\item
+		You will find {\tt :CourseData:/data/A0/a0.py}
+		in the {\tt A0} subdirectory.  Make sure it is executable.
+    
+		The {\tt a0.py} Python program
+                is an ASCII file (a shell script, 
+		essentially) that is interpreted by {\tt python}.
+		You can draw lines, rectangles, and ovals 
+		with this program.  You can save your drawing via the
+		Save entry under the File menu (the drawing will be
+		saved as the PostScript file {\tt a0.ps}).
+
+		Note that, as an interpreted Python script, 
+                {\tt a0.py} does not have
+		to be compiled to run.
+
+	\item
+		To run the program type {\tt python a0.py} at the
+		command line.  To exit you must select
+		the ``Quit'' entry under the ``File'' menu.
+
+		Modify {\tt a0.py} so that a ``Regenerate'' button is placed at 
+		the bottom of the window.  When this button is pressed, the 
+		program regenerates the maze.
+
+	\item	Modify the program to draw the maze.
+
+	\item	Modify the program to toggle the state of a cell.  A cell
+		can have two states: selected or unselected.  The state
+		determines how the cell is drawn.  This allows the user
+		to select a path from the start to the end of the maze.
+
+	\item 	Add a Clear entry to the File menu.  This entry should
+		clear any cells that have been selected.
+
+	\item	Add a new menu entry for Saving what's on the screen.
+
+	\item	Change the Size numeric entry at the bottom to a
+		Width, Heigh numeric entry (i.e., there should be
+		two numeric entries).
+
+	\item	Add the following keyboard shortcuts:
+		\begin{description}
+			\item[Q:] Quit
+			\item[C:] Clear
+			\item[L:] Lines
+			\item[R:] Rectangle
+			\item[O:] Ovals
+		\end{description}
+
+	\item
+		Write a Manual and a {\tt README} for {\tt a0.py} 
+		explaining how to run and use it.  
+		The Manual should be submitted in hardcopy.
+		The {\tt README} should be in the {\tt cs488/handin/A0} 
+		directory but does not have to be handed in as a hardcopy.  
+	\item
+		Remove all unnecessary files (eg., 
+			{\tt *.bak, *{\char126}, core}, etc).
+
+    \item
+	From your {\tt cs488/handin} directory
+	run ``{\tt grsubmit A0}'' to create a checksum
+	for your assignment.   Note that {\tt :CourseData:/bin} should
+	already be in your search path.
+	You are to print out this checksum and
+	hand it in with your assignment.
+
+    \item
+	Hand in all the things mentioned in the {\bf Assignment Format} 
+	documentation that are applicable to this assignment.  Double
+	check the objectives to ensure that your assignment meets all of them.
+	Make sure you sign the objective sheet and fill in the requested 
+	information!
+
+\end{enumerate}
+
+\section{Maze Generation}
+The following is a simple maze generation routine.  You are free to use a
+more sophisticated generation routine; if you use a simpler one, you might
+not receive full marks for the maze generation objective.
+
+Assume your maze is represented as a grid of cells, where each cell knows
+whether or not it is connected to each of its four neighbors.  If a cell
+is not connected to a neighbor, we will say that there is a wall between
+the two cells.  So each cell may have from 0 to 4 walls.  Given a start
+and end cell, the following routine will generate a maze:
+\begin{verbatim}
+    GenMaze(int i, int j)
+    Let n = number of walls of cell(i,j)
+    If n is 0 then return
+    For i=1 to n
+        Select random direction dx,dy in which there is a wall
+        RemoveCellWall(i,j,dx,dy)
+        RemoveCellWall(i+dx,i+dy)
+        GenMaze(i+dx,j+dy)
+    EndFor
+\end{verbatim}
+A few notes:
+\begin{itemize}
+	\item The directions in which there are walls are up, down, left, and
+		right.  This means $dx,dy\in \{-1,0,1\}$ and that exactly one
+		of $dx$ and $dy$ is zero.
+	\item Your maze will have a boundary, so your code will need to have
+		special walls that can not be removed.
+	\item You start the maze generation by calling GenMaze on the
+		start location.
+\end{itemize}
+
+\section{Donated Code}
+In \texttt{:CourseData:/data/A0} you will find
+\begin{itemize}
+	\item \texttt{a0.py} - A Python script for drawing lines,
+		rectangles, and circles.
+\end{itemize}
+This file has been copied to your \texttt{handin/A0} directory.
+
+\section{Deliverables}
+\begin{description}
+\item[Executables:] \hfill
+
+	\texttt{a0.py}.  Be sure to place this in the correct
+	directory (under {\tt A0}).
+\item[Documentation] \hfill
+
+	\texttt{README}.  Be sure to place this in the correct directory 
+        (under {\tt A0}).
+\end{description}
+
+\newpage
+\section{Objectives: \hfill Assignment 0}
+
+\noindent{\large \bf Due: :A0Deadline:.} \bigskip
+
+\noindent{\large \bf Name: \hrulefill} \bigskip
+
+\noindent{\large \bf UserID: \hrulefill} \bigskip
+
+\noindent{\large \bf Student ID: \hrulefill} \bigskip
+
+\begin{description}
+\large
+	\item[\_\_\_ 1:]{
+	    The account is set up correctly.
+	}
+	\item[\_\_\_ 2:]{
+	    The checksum program was run, and its output was printed 
+	    and included in the submitted documentation.
+	}
+	\item[\_\_\_ 3:]{
+	    The correct information was handed in as hardcopy, 
+		and a {\tt README} file exists in {\tt handin/A0}.
+	}
+	\item[\_\_\_ 4:]{
+		There is a ``Regenerate'' button at the bottom
+		of the window that generates a new maze.
+	}
+	\item[\_\_\_ 5:]{
+		A Quit entry has been added to the File menu, which
+		quits the program.
+	}
+	\item[\_\_\_ 6:]{
+		A Colour menu has been added with the listed colours.
+		After a colour is selected, any subsequent draws of
+		a rectangle or oval are filled with that colour.
+	}
+	\item[\_\_\_ 7:]{
+		The tools menu has been modified to use Radio Buttons
+		to select between the graphics primitives.
+	}
+	\item[\_\_\_ 8:]{
+		Keyboard shortcuts have been added for Quit~(Q),
+		Clear~(C), 
+		Lines~(L), Rectangles~(R), and Ovals~(O).
+	}
+	\item[\_\_\_ 9:]{
+		Non-trivial maze generation.
+	}
+	\item[\_\_\_ 10:]{
+	    There is numeric entry for width and height.
+	}
+\end{description}
+
+\input{declare}
+

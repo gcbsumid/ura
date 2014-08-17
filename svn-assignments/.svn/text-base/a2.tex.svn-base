@@ -1,0 +1,27 @@
+\documentclass[11pt,twoside,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage{graphicx,hyperref}
+
+\include{infoMacros}
+
+\renewcommand{\baselinestretch}{1.05}
+%\setcounter{secnumdepth}{-2}
+
+\raggedbottom
+
+\title{\Huge\bf CS488 \\ Assignment 2}
+\date{}
+
+%\pagestyle{myheadings}
+%\markboth{\ \coursenum{} \hfill \termlong{} \hfill \coursetitle{}}
+%         {\coursenum{} \hfill \termlong{} \hfill \instsshort{} \ }
+
+\setlength{\headsep}{0.75cm}
+
+\begin{document}
+\maketitle
+%\chapter{{\Large \coursenum{} \termshort{}} 
+%                \hfill A1: Introduction} 
+        \input{a2contents}
+
+\end{document}

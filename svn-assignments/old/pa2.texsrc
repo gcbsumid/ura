@@ -1,0 +1,419 @@
+%\Chapter{Assignment 2}
+\begin{quote}
+        {\sl 
+        ``Can I use a dialog box to implement rotations?'' 
+        } \\
+        \mbox{}\hfill -- A student working on Assignment 2 
+                (who was promptly told `No')
+\end{quote}
+This assignment is due {\bf :A2Deadline:}.
+% at the beginning of the lecture.
+\section{Topics}
+\begin{itemize}
+\item Modeling and viewing transformations.
+\item Perspective and homogeneous coordinates.
+\item 3D line/plane clipping.
+\item Menus, menubars, valuators, and message areas.
+\end{itemize}
+
+\section{Statement}
+You are to write a program that displays and interactively manipulates a
+wire-frame box that you should construct with vertices at the 8 unit points
+(+\,--1,+\,--1,+\,--1).  
+
+You are to provide a
+set of coordinate axes
+(a {\bf modelling gnomon})
+that you should construct with three lines, drawn from (0,0,0)
+to (0.5,0,0), (0,0.5,0), and (0,0,0.5) respectively.
+This gnomon will represent the local {\bf modelling coordinates} of the box, 
+and it must be subjected to every modelling, viewing
+and projection transformation applied to the box
+{\em except scaling}.
+
+You are also to draw a separate set of axes for the {\bf world coordinates},
+which are the same size (coordinates) as the modelling gnomon, but are aligned
+with the world coordinate axes instead of the modelling axes.
+The world gnomon should be at (0,0,0).
+You should subject this {\bf world gnomon}
+only to the viewing and projection transformations.
+
+Note that the gnomon are merely graphical representations of the coordinate
+axes; for the coordinate axes themselves you should use orthonormal bases.
+
+You are to apply {\bf modelling} transformations to the box
+({\it rotations}, {\it translations}, and {\it scales})
+and {\bf viewing} transformations to the eyepoint
+({\it rotations} and {\it translations}).
+Transformations will be menu-selected
+and will be applied
+according to mouse interactions.
+Specifically, {\it x} motion of the mouse will be used
+as a {\it valuator} to control the amount of each transformation,
+the mouse {\it buttons} will be used to select the axis of the
+transformation, and a menu will be used as a {\it choice} device
+to determine the major modes of the
+program's execution.
+
+You will need to maintain 
+four distinct coordinate systems in this assignment.
+Three of these coordinate systems are 3D and one is 2D:
+the box (``model'') coordinates (3D), the eyepoint (``view'') coordinates (3D),
+the universal (``world'') coordinates (3D), and the display (``screen'')
+2D normalized device coordinates (which arise from the perspective projection
+of the eye's view onto the eye's {\it x}, {\it y\/} plane).
+
+The modelling transformations apply with respect to the
+model coordinates (i.e. a {\it model mode rotation} about the the 
+{\it x\/} axis
+will rotate the box about its current {\it x\/} axis, not the world's
+{\it x\/} axis).
+The viewing transformations apply with respect to the view coordinates
+(i.e. a {\it view mode rotation} about the {\it x\/} axis will appear
+to swing the objects of the view up or down on the screen, since
+the eye's {\it x\/} appears parallel to the screen's horizontal axis).
+None of the transformations will change the world coordinates
+(i.e., the world gnomon never changes its location, though, of course,
+it may drift out of our view as a result of viewing transformations).
+
+You are to form all matrices yourself and accumulate all matrix products
+in software.  You will also do the perspective projection yourself, 
+including the division to convert from 3D homogeneous coordinates to 2D
+Cartesian coordinates.  This means that you will have to do a 3D near-plane
+line/plane clip in the viewing coordinate system to avoid dividing by zero or
+having line segments ``wrap around''.
+
+\section{The Interface}
+
+We have provided the following Python functions; the stubs that implement
+them appear in {\tt gr.cpp}:
+\begin{description}
+	\item[{\tt gr.identity}()] ---
+		Return an identity matrix.  This function is implemented
+		for you.
+        \item[{\tt gr.rotation} ( {\it Angle}, {\it a} )] ---
+                Return a matrix to represent a CCW rotation of {\it Angle}
+                degrees around the axis {\it a} (where \textit{a} is one of
+                the characters ``{\tt x}'', ``{\tt y}'', or ``{\tt z}'').
+                Positive rotation should be counter-clockwise.
+
+        \item[{\tt gr.translation} ( {\it dx, dy, dz} )] ---
+                Return a matrix to represent a displacement
+                of [{\it dx~dy~dz}].
+        \item[{\tt gr.scaling} ( {\it sx, sy, sz} )] ---
+                Return a matrix to represent a nonuniform scale with factors
+                {\it sx}, {\it sy}, and {\it sz}.
+        \item[{\tt gr.set\_perspective} ( {\it FOV}, {\it aspect}, {\it near}, {\it far} )] ---
+		Set the parameters of the current perspective projection,
+                using the semantics of {\tt gluPerspective()}.  
+                There should be an on-screen indication (textual is fine)
+		of the location
+                of the near and far plane.  The near and far plane are
+                specified in positive distances from the eyepoint.
+	\item[{\tt gr.set\_matrix} ( {\it MatrixName}, {\it Matrix} )] ---
+		Set {\it MatrixName} to {\it Matrix}.
+	\item[{\tt gr.get\_matrix} ( {\it MatrixName} )] ---
+		Return the matrix stored in {\it MatrixName}.
+	\item[{\tt gr.set\_viewport} ( {\it x1}, {\it y1}, {\it x2}, {\it y2} )]  ---
+		Change the viewport to the specified device coordinates.
+	\item[{\tt gr.reset} ()] ---
+		Restore the original state of all transforms and perspective
+		parameters, and set the viewport to fullscreen.
+        \item[{\tt gr.render} ( {\it width}, {\it height} )] --- 
+		Do the rendering,
+                using the current value of whatever modelling, viewing, and
+                projection matrices that you have defined.
+		Width and height are the size of the Togl widget.
+\end{description}
+
+You can decide what matrices you want to support, and what each means.
+At the very least, you will need a modelling matrix and a 
+viewing matrix.
+You can have a fixed set of matrices in your C++ code.
+
+If you want to implement any additional Python commands, feel free.
+Just make sure to document things well enough so that the TAs can
+find their way around your code.  
+
+\section{Drawing lines}
+
+In {\tt draw.c}, we provide the following C++ routines to draw lines and
+set colours in a Togl widget:
+\begin{itemize}
+	\item {\tt draw\_line(GrPoint2D p, GrPoint2D q)} --- draw a
+		line segment in a Togl widget.  {\tt p} and
+		{\tt q} are in window coordinates.
+	\item {\tt set\_colour(GrColour col)}.
+\end{itemize}
+These routines use OpenGL, and there are additional OpenGL routines called
+from {\tt grmodule.cpp}.  Your assignment should not contain any further OpenGL
+calls.  Further, you should not modify {\tt draw.cpp}.
+
+
+
+
+\section{Top Level Interaction}
+The menubar will support (at least) two menus: the {\tt File} and {\tt
+Mode} menus.  The {\tt File} menu will have two selections: {\tt
+Reset} (keyboard shortcut {\tt A}), which will restore the original 
+state of all transforms and perspective parameters, and set the viewport 
+to fullscreen; and {\tt Quit} (keyboard shortcut {\tt Q}), which will 
+terminate the program.
+
+The {\tt Mode} menu selections will be used to determine what effect
+mouse dragging on the viewing area will have on the
+transformations.  The {\tt Mode} menu will consist of a
+list of radiobuttons, which select among the viewing and modelling
+modes, and a viewport mode.  There should be an on-screen indication of what
+mode is currently active (eg., a message bar).
+
+In any View and Model interaction modes,
+transformations are initiated with the cursor in the 3D viewing area,
+upon a button down event.  Relative motion of the cursor is tracked and the
+transformations are continuously updated until a button up event
+is received.  The current interactive mode
+should be presented in a message bar somewhere on
+the display widget (hint: use a {\tt Label} widget).   You should also
+show the locations of the near and far plane.
+
+If multiple mouse buttons are held down simultaneously, all
+relevant parameters should be updated in parallel.  For rotation, you may
+apply the rotations in a fixed order, as opposed to composing multiple
+infinitesimal rotations.  However, this ONLY applies to the case where
+multiple mouse buttons are held down; in general, you will want to be able to
+compose an {\em arbitrary\/} sequence of transformations.
+
+These interaction modes are a bare minimum, and form a poor
+3D user interface.  We'll look at better ways to create an interface
+to 3D rotations in Assignment~3.
+
+
+\section{View Interaction Modes}
+
+The following view interaction modes should be supported:
+\begin{description}
+    \item[Rotate (keyboard shortcut {\tt O}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Rotate sight vector about eye's x (horizontal) axis.
+            \item[B2:] Rotate sight vector about eye's y (vertical) axis.
+            \item[B3:] Rotate sight vector about eye's z (straight into eye).
+                \end{description}
+    \item[Translate (keyboard shortcut {\tt N}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Translate eyepoint along eye's x axis.
+            \item[B2:] Translate eyepoint along eye's y axis.
+            \item[B3:] Translate eyepoint along eye's z axis.
+                \end{description}
+    \item[Perspective (keyboard shortcut {\tt P}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Change the FOV over the range of 5 to 160 
+                degrees.
+            \item[B2:] Translate the near plane along z.
+            \item[B3:] Translate the far plane along z.
+                \end{description}
+\end{description}
+A good default value for the FOV (Field Of View) is 30 degrees.
+
+\section{Model Interaction Modes}
+
+The following model interaction modes should be supported:
+\begin{description}
+    \item[Rotate (keyboard shortcut {\tt R}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Rotate box about its local x axis.
+            \item[B2:] Rotate box about its local y axis.
+            \item[B3:] Rotate box about its local z axis.
+                \end{description}
+    \item[Translate (keyboard shortcut {\tt T}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Translate box along its local x axis.
+            \item[B2:] Translate box along its local y axis.
+            \item[B3:] Translate box along its local z axis.
+                \end{description}
+    \item[Scale (keyboard shortcut {\tt S}):] Use x-motion of the mouse to: \hfill
+                \begin{description}
+            \item[B1:] Scale box along its local x axis.
+            \item[B2:] Scale box along its local y axis.
+            \item[B3:] Scale box along its local z axis.
+                \end{description}
+\end{description}
+
+The initial interaction mode should be model-rotate, and this mode
+should be restored on a reset.
+
+The amount of translation, rotation, or scaling will be determined
+from the relative change in the cursor's {\it x}
+value referenced to the value
+read at the time the mouse button was last moved.
+Make sure your program
+doesn't get confused if more than one button is pressed at the
+same time; all the motion events should be processed simultaneously,
+as specified above, although individual ``incremental'' transformations
+can be composed in a fixed order.
+
+The relative mouse motion is to be mapped from
+its range of possible values into an appropriate range for
+rotation (e.g. 0 to 360) into an appropriate range for translations
+(e.g. -5.0 to +5.0) and into an appropriate range for scaling
+(e.g. 0.01 to 10.0) depending upon the mode that has been
+chosen.
+
+Do not limit the {\it accumulation} of rotations and translations;
+i.e., there should be no restriction on the
+cumulative amount of rotation or translation applied to an object,
+or to the number of sequential transformations.
+
+\section{Viewport mode}
+The viewport mode allows the user to change the viewport.  Assume that
+you have a square window into the world, and that this window is
+mapped to the (possibly non-square) viewport.  
+Don't bother trying to preserve the aspect ratio.
+You should
+draw the outline of the viewport so that we can tell where it is.
+
+In the Viewport mode, the left mouse button is used to draw a new
+viewport.  The left-mouse-button-down event sets one corner, while
+the left-mouse-button-up event sets the other corner.  You should be
+able to draw a viewport by specifying the corners in any order.
+If a mouse up position is outside the window, clamp the edges
+of the viewport to the visible part of the window.
+
+Note also that the viewport is to be reset to the full window size when
+the reset option is selected from the file menu.
+
+The keyboard shortcut for viewport mode should be {\tt V}.
+
+
+\section{Projective Transformation}
+You will need to implement a projective transformation.  This will
+make the cube look three-dimensional, with perspective foreshortening
+distinguishing front and back.  You may use a projective
+transformation matrix, if you wish.
+However, note that for this assignment there is no need to transform
+the $z$-coordinate.  You can use the mappings $x/z$ and $y/z$,
+although note that some additional scaling will be necessary to
+account for the field-of-view.
+
+\section{Orthographic View}
+If you cannot get your projective transformation matrix working,
+you may implement an orthographic view (no perspective) instead.
+However, you will not get a mark for objective 7.  You may also 
+want to implement an orthographic view first and do your projective
+transformations last.
+
+\section{Line clipping}
+You will need to clip your lines to the viewing volume.  There are
+several ways to clip, any of which will suffice for this assignment.
+Note, however, that you \emph{must} clip to the near plane before completing
+the perspective projection, or you will get odd behaviour and coredumps.
+You may find it easiest to clip to the remaining sides of the viewing
+volume after you complete the projection (since you will be clipping to
+a cube), but you may clip at any point in your program.
+Note that we will be testing clipping against all sides of the view
+volume.
+
+\section{Donated Code}
+In {\tt :CourseData:/data/A2}, you will find
+\begin{itemize}
+        \item {\tt draw.cpp} - The drawing routines.
+        \item {\tt gr.cpp} -   Stubs that you should modify to implement
+                your own transformations, etc.
+        \item {\tt grmodule.cpp} - The Python/C interface.
+        \item {\tt a2.py} - The Python/Tkinter program defining the user
+          interface.
+	\item {\tt algebra.cpp} -- Routines for geometry, lumpy toads, etc.
+        \item {\tt setup.py} - A script for building the Python extension.
+\end{itemize}\
+These files have been copied to your \texttt{handin/A2} directory.
+
+
+\section{Deliverables}
+\begin{description}
+\item[Executables:] \hfill
+
+Your source should be
+in the directory {\tt cs488/handin/A2/src}.  
+Your executable and your Python script should be in
+{\tt cs488/handin/A2}.  There should be the 
+following two files needed for
+execution (plus the corresponding C++ source code):
+\begin{itemize}
+        \item \texttt{a2.py} - The Python/Tkinter program defining 
+		the user interface.
+	\item \texttt{gr.so} - An Python module that
+		implements the necessary C callbacks.
+\end{itemize}
+
+\item[Additional Documentation:]
+Be sure to note the following in your documentation: \hfill
+\begin{itemize}
+        \item How you set up the view volume clips, and what you called the
+                function that implements these clips;
+	\item What matrices you chose to store in {\tt gr.cpp} and 
+		their purpose.
+\end{itemize}
+\end{description}
+
+\newpage
+\section{Objectives: \hfill Assignment 2}
+
+\noindent {\large \bf Due: :A2Deadline:.} \bigskip
+
+\noindent {\large \bf Name: \hrulefill} \bigskip
+
+\noindent {\large \bf UserID: \hrulefill} \bigskip
+
+\noindent {\large \bf Student ID: \hrulefill} \bigskip
+
+\begin{description}\small
+\item[\_\_\_ 1:]
+        All model transformations are carried out with respect 
+        to the box's local origin.  (This means, for example, 
+        that an {\it x} translation will not necessarily be 
+        parallel to the world's {\it x} axis, if the box has been 
+        rotated about its {\it y} or {\it z} axis.)
+\item[\_\_\_ 2:]
+        Viewing transformations work as expected according
+        to the eye's coordinates.  This is indicated by where
+        the world gnomon is displayed.
+\item[\_\_\_ 3:]
+        Model transformations are applied to the box gnomon, except
+        that the box gnomon is carried along {\bf unscaled}.
+\item[\_\_\_ 4:]
+        The transformations in all modes act smoothly {\bf while} the
+        mouse is being moved.
+        Pressing two buttons at the same time results in the two 
+        transformations being performed together.
+\item[\_\_\_ 5:]
+        Rotations, translations, and scales can be invoked in any order.
+        Interaction modes may be entered and left as often as desired.
+        There are no restrictions that prevent model transformations
+        from being applied after the view has changed, or view 
+        transformations after the box has been transformed.
+        No matter what sequence of transformations is entered,
+        the box never distorts so that its edges fail to meet at right angles 
+        (in 3D).
+\item[\_\_\_ 6:]
+        A menubar with pulldown menus is used, with the functionality
+        specified in the assignment description, including a reset 
+        for all transformations, the use of radiobuttons,
+        and on screen feedback indicating the current interaction mode,
+        and near and far plane locations.
+\item[\_\_\_ 7:]
+	The perspective transformation has been correctly implemented,
+	and the field-of-view can be changed as specified in the 
+        assignment description.
+\item[\_\_\_ 8:]
+	The viewport user interface and the viewport mapping works 
+        as specified in the assignment description.
+\item[\_\_\_ 9:]
+        Lines are clipped to the near and far planes.  The near and
+        far planes can be changed as specified in the assignment
+        description.
+\item[\_\_\_ 10:]
+        Lines are clipped to the sides of the viewing volume.
+
+\end{description}
+
+\input{declare}
+

@@ -1,0 +1,358 @@
+\begin{quote}
+        {\sl
+        ``I think this assignment should have 8 objectives but we should still mark it out of~10.''
+        } \\
+        \mbox{}\hfill -- The Mean TA.
+\end{quote}
+
+This assignment is due {\bf \AoneDeadline}.
+
+\section{Topics}
+
+\begin{itemize}
+	\item Exposure to OpenGL
+	\item Callback-based program structure
+	\item \texttt{Qt} user interfaces
+\end{itemize}
+
+\section{Statement}
+
+This assignment will get you started writing graphics applications
+using OpenGL.  It will also familiarize you with the set of languages
+and APIs we will be using for subsequent assignments.  You will be
+writing a user interface in C++ using the \texttt{Qt} toolkit.
+The user interface will be wrapped around a window in which graphics
+will be rendered using OpenGL from the C++ application.
+
+In particular, the program is a game in which the user must manipulate
+falling tetrominoes so as to make complete lines at the bottom of a
+well.  When lines are completed, they are removed from the game.  When
+the well fills up, the game is over.  Any resemblance between this
+game and a popular arcade game of Russian extraction from the 1980s
+is purely coincidental.
+
+You will also implement some graphical functionality not directly
+related to game play, but that will help you develop Modern OpenGL skills
+needed in later assignments.
+
+\section{The game}
+
+The game takes place in a U-shaped well of unit cubes enclosing
+a grid of width 10 and height 20 in which tetrominoes can fall.
+The blocks occupy discrete positions in the grid (they don't fall
+smoothly, but jump from position to position).
+
+Tetrominoes start in a four unit tall stripe on top of the well.
+Every time a predetermined interval elapses, the current tetromino
+falls one unit.  A value of 500ms is a good novice interval; 100ms is more
+challenging.  At any time, the current piece can be moved to
+the left or right, rotated clockwise or counter-clockwise, and
+dropped the rest of the way down the well.  When the piece can
+fall no further, it stops, and any rows in the well that are completely
+filled are removed from the game.  The game ends when a piece
+cannot clear the starting stripe.
+
+You should have at least three different speeds at which the pieces fall.
+
+The game should be drawn from unit cubes.  The well and the
+various piece shapes should all be drawn in different colours.
+
+You should add a new game piece.  The piece must not be a rotation or
+reflection or shift of an existing piece.  However, your new piece
+does not need to be a tetrominoe; i.e., it may be composed of more (or less)
+than four cubes.
+
+\section{The interface}
+
+The user interface should be written in \texttt{Qt}, a cross-platform
+application and UI framework for C++ developers. You will need to
+implement the following functionality (the letters in () indicate the
+keyboard shortcut; remember, both upper and lower case should work for
+the keyboard shortcut):
+
+\begin{itemize}
+	\item An \texttt{Application} menu with the following menu items:
+	\begin{itemize}
+		\item \texttt{New game (N)}: Start a new game.
+			\texttt{N}.
+		\item \texttt{Reset (R)}: Reset the view of the game.
+		\item \texttt{Quit (Q)}: Exit the program.  
+			(This one should already
+			be implemented; be sure not to break it.)
+	\end{itemize}
+
+	\item A \texttt{Draw Mode} menu with the following menu items:
+	\begin{itemize}
+		\item \texttt{Wire-frame (W)}: Draw the game in wire-frame mode.
+		\item \texttt{Face (F)}: Fill in the faces in the game.  Each
+			different piece shape should have its own uniform colour.
+		\item \texttt{Multicoloured (M)}: Similar to \texttt{Face} mode,
+			but each cube has six faces of different colours
+                        (i.e., no two faces should have the same colour).
+	\end{itemize}
+
+	The \texttt{Draw Mode} menu should use radio buttons to
+	indicate which state is selected.
+
+	\item A radiobutton \texttt{Speed} menu with at \texttt{Slow (1)}, 
+          \texttt{Medium (2)}, and \texttt{Fast (3)} 
+          speeds that sets the rate at which pieces fall.  
+		The game may use additional speeds, but you need
+		to be able to set the speed to one of the three.
+
+\iffalse
+	\item A \texttt{Buffering (B)} menu with the following menu item:
+	\begin{itemize}
+		\item \texttt{Double buffer}: Toggle double-buffering. This should be a check item.
+	\end{itemize}
+
+	The keyboard shortcut \texttt{B} should toggle the buffering mode.
+\fi
+
+	\item Mouse movements:
+	\begin{itemize}
+		\item Mouse operations should be initiated by pressing the
+		  appropriate mouse button and terminated by releasing
+		  that button.  Only motion in the horizontal direction
+		  should be used.
+		\item The left mouse button should rotate the game around the
+		  X axis.
+		\item The middle mouse button should rotate the game around
+		  the Y axis.
+		\item The right mouse button should rotate the game around
+		  the Z axis.
+		\item When the shift key is pressed, all mouse buttons should
+		  uniformly scale the game (both the board and the pieces).
+		  When the mouse moves to the left, the game should become
+		  smaller, and when the mouse moves
+		  to the right the game should become larger.  
+		  The maximum and minimum scales should be restricted to
+		  a reasonable range.
+	\end{itemize}
+
+	You must make reasonable decisions about how much to scale
+	or rotate for every pixel's worth of mouse motion.   For example,
+	if the mouse isn't moving, there should be no scaling or rotation.
+
+	You are also required to implement a feature sometimes known
+	as ``persistence'' or ``gravity''.  If, while rotating, the mouse
+	is moving at the time that the button is released, the rotation
+	should continue on its own.  This decision should be made at the
+	time of release; after that, it should persist independently of
+	mouse movement, until the next button press.
+
+	\item Game play:
+	\begin{itemize}
+		\item The left arrow key should move the currently falling piece
+		  one space to the left.
+		\item The right arrow key should move the current piece
+		  one space to the right.
+		\item The up arrow key should rotate the current piece
+		  counter-clockwise.
+		\item The down arrow key should rotate the current piece clockwise.
+		\item The space bar should 'drop' the piece, sending it as far
+		  down in the well as it will go.
+	\end{itemize}
+\end{itemize}
+
+\section{Qt and OpenGL}
+
+In this course, user interfaces are written in \texttt{Qt}, a cross-platform
+application and UI framework for C++ developers. 
+
+In the C++ code you write for this assignment, you won't need to use
+any OpenGL commands apart from these:
+
+\begin{itemize}
+	\item \texttt{glEnable}, \texttt{glDisable}
+	\item \texttt{glBegin}, \texttt{glEnd}
+	\item \texttt{glVertex}
+	\item \texttt{glNormal} (maybe)
+	\item \texttt{glRotate}
+	\item \texttt{glScale}
+	\item \texttt{glTranslate}
+        \item \texttt{glDrawBuffer}
+\end{itemize}
+
+(Of course, you may find that you will want to use additional OpenGL
+functionality to add extra features.
+Note that the \texttt{Matrix4x4} class stores its matrices in row-major
+order, but OpenGL expects matrices in column-major order.)
+
+\iffalse
+\subsection{Double buffering}
+
+Your program should support both single and double buffering.  In single
+buffering, graphics commands draw directly onto the screen.  In
+double buffering, drawing happens on a ``back buffer'' that is then
+swapped with the ``front buffer'' when drawing is complete. Because
+the swapping happens quickly, the user never sees a half-complete rendering.
+
+The OpenGL command \texttt{glDrawBuffer} lets you choose which buffer
+to draw into.  The \texttt{gtk\-gl\-ext\-mm} widget allows you to swap the
+buffers, and this is already implemented for you in \texttt{viewer.cpp}
+\fi
+
+\section{The Skeleton Program}
+
+If your account is correctly set up, you will find a skeleton
+program in the \texttt{cs488/A1/src} subdirectory of the source
+distribution.  The program creates a user interface
+with an OpenGL window.   As a test, it draws triangles where the
+corners of your game (not including the well) should appear.
+The camera is set up so that the triangles appear centered and
+correctly sized.
+You need to modify this code to
+render the current state of the game and respond to user interface
+events.  Here's a to-do list, with a suggested order that will help
+you make your way through the assignment.
+
+\begin{itemize}
+	\item Write a function to draw a unit cube using OpenGL.  You
+		  can test it by modifying \texttt{Viewer}'s
+                  \texttt{on\_\-expose\_\-event} member function to draw a hard-coded
+		  set of unit cubes.  There are two ways to draw cubes:
+
+		\begin{itemize}
+		  \item If you're already familiar with OpenGL, you can write a
+		  	single \texttt{drawCube} function that draws a cube at 
+			the origin,
+			  and use \texttt{glPushMatrix}, \texttt{glPopMatrix}, 
+			and
+			  \texttt{glTranslate} to place each cube in the game.
+		  \item You can also just write a \texttt{drawCube} function
+		  	that takes the cube's location as a parameter and draws
+			the cube directly in that location.
+		\end{itemize}
+
+		Note that although the GLUT library includes a function to draw
+		a unit cube, you can't use it in this assignment.  Your cube
+		should be composed from calls to \texttt{glVertex}.
+
+	\item In your render function, draw a U-shaped border for
+	      the well out of cubes.
+
+	\item Implement face rendering and wireframe
+		  rendering.
+
+	\item Implement rotation and scaling.  You should be
+	      able to see the effect on the well.
+
+\iffalse
+	\item Implement single- and double-buffering.
+		  You should be able to see the difference when rotating
+		  the well.
+\fi
+
+	\item A new piece shape has been added.
+
+	\item Add code to draw the current contents of the game.
+		  Each piece type should be drawn in a different colour;
+		  the colours are up to you.
+
+	\item Hook up a simple timer event (using the \texttt{Glib::SignalTimeout::connect}
+		  method) that calls down to the game's
+		  \texttt{tick} method and re-renders.  You should be able to see
+		  pieces falling.
+
+	\item Implement the rest of the controls for game play and
+		  the remaining user interface details.
+\end{itemize}
+
+\section{Donated code}
+
+The skeleton program comes with the following files:
+
+\begin{itemize}
+        \item \texttt{main.cpp} -- The entry point for the program.
+        \item \texttt{viewer.hpp}, \texttt{viewer.cpp} -- The OpenGL
+          widget. All of the OpenGL-related code is here.
+        \item \texttt{appwindow.hpp}, \texttt{appwindow.cpp} -- The
+          application window code. Most of the UI-related code
+          (menubars, etc.) is in these two files.
+	\item \texttt{game.cpp}, \texttt{game.hpp} -- An engine that implements
+		the core of the falling blocks game.
+	\item \texttt{algebra.cpp}, \texttt{algebra.hpp} -- Some basic geometry
+		and colour classes useful throughout the course.
+	\item \texttt{Makefile} -- Used to compile the program with \texttt{make}.
+\end{itemize}
+
+You should be able to get the skeleton program running using the
+commands \texttt{make; ./game488}.
+
+\section{Deliverables}
+
+These executable files should be put in the directory \texttt{cs488/handin/A1}:
+
+\begin{itemize}
+	\item \texttt{game488} -- The program executable.
+\end{itemize}
+
+All source files should be in the directory \texttt{cs488/handin/A1/src}.
+
+Don't forget \texttt{screenshot01.png}
+
+\section{Hints, tips, and ideas}
+
+There are lots of ways this simple application could be modified
+to enhance playability and attractiveness.  You are encouraged to
+experiment with the code to implement these sorts of changes, as
+long as you have already met the assignment's basic objectives.
+Here are some suggestions:
+
+\begin{itemize}
+  \item As the game progresses (ie, as more filled rows are removed from
+    the game), have the pieces fall at a faster rate.  
+
+	\item A scoring mechanism.
+	\item Head-to-head networked play.
+	\item Modified cubes for pieces.  The blocks look much better
+		  if individual cubes have their edges slightly beveled.
+	\item Animations for certain events.  The board can spin around
+		  when you lose, for example.
+	\item Add lighting.
+\end{itemize}
+
+If you make extensive modifications to the game, you should make
+sure to run in a ``compatibility mode'' mode by default -- you should
+support at least the user interface required by the assignment.
+You can activate your extensions either with a special command line
+argument or a menu item.
+
+\newpage
+\section{Objectives: \hfill Assignment 1}
+\ \\ {\large \bf Due: \AoneDeadline.} \\
+\ \\ {\large \bf Name: \hrulefill} \\
+\ \\ {\large \bf UserID: \hrulefill} \\
+\ \\ {\large \bf Student ID: \hrulefill} \\
+\begin{description}
+        \item[\_\_\_ 1:]
+          Wireframe mode works.
+        \item[\_\_\_ 2:]
+          Face colour mode works.
+        \item[\_\_\_ 3:]
+       	  Multicoloured face mode works.
+        \item[\_\_\_ 4:]
+          Pieces fall at three or more speeds.
+        \item[\_\_\_ 5:]
+          A new piece has been added to the game.
+        \item[\_\_\_ 6:]
+          The user interface works as specified (menus, mouse
+          interaction, etc).
+        \item[\_\_\_ 7:]
+          The game can be rotated.
+        \item[\_\_\_ 8:]
+          The game can be scaled.
+        \item[\_\_\_ 9:]
+          The game is playable (i.e., you can move the pieces as described 
+		under "game play" of the assignment specification).
+        \item[\_\_\_ 10:]
+          Persistence works for rotation.
+\end{description}
+
+\input{declare}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "a1.tex"
+%%% End: 

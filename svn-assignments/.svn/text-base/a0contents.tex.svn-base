@@ -1,0 +1,279 @@
+%\Chapter{Assignment 0}
+\iffalse
+\begin{quote}
+        {\sl 
+        ``I want to work on Assignment 0.  I want to do some Tcl
+        programming---there's no thinking involved!''
+        } \\
+        \mbox{}\hfill -- The TA who developed this assignment
+\end{quote}
+\fi
+This assignment is due {\bf \AzeroDeadline}.
+% , at the beginning of the lecture.
+\section{Topics}
+\begin{itemize}
+\item Familiarise you with the course computing environment.
+\item Ensure that your account(s) are set up properly.
+\item Provide exposure to gtkmm and a refresher of C++.
+\item Provide practice in building/modifying a user interface.
+\item Give you a trial run at submitting an assignment.
+\end{itemize}
+
+\section{Summary}
+This assignment is optional.
+
+If you do not hand it in, you will not lose
+marks.  If you do hand it in, it will be marked in the normal way, but the
+mark will not be recorded.  
+Therefore, if you have any theologically unsound habits that
+will cost you marks or if your account is not set up correctly, you will
+have a chance to correct things before Assignment~1.   
+
+In past terms, over half the students who did not submit Assignment~0
+lost marks on Assignment~1 for setting up their account incorrectly
+or for submitting inadequate documentation.  These mistakes could have
+been avoided had these students completed Assignment~0.
+
+It is in your best interest to do this assignment.  
+You will gain some information and experience which will be
+useful for later assignments.  Thus, even if you do not
+choose to hand in Assignment~0, you will still eventually need to learn 
+what it covers before you can finish later assignments.
+
+Note also that the directions in this assignment are more explicit than
+in the remaining assignments.  In the future, the steps to follow will
+not be written as explicitly.
+
+\section{Statement}
+Do the following:
+\begin{enumerate}
+    \item
+        Set up your account.  To do this, login to a Linux or Unix
+        machine in the undergrad environment
+        and type ``\texttt{/u/gr/cs488/bin/setup}''.
+        Observe that you now have
+        the following directory subtree in your home directory:
+        \begin{verbatim}
+       cs488/
+            handin/
+                A0/
+                    src/
+                    data/
+                A1/
+                    src/
+                    data/
+                A2/
+                    src/
+                    data/
+                A3/
+                    src/
+                    data/
+                A4/
+                    src/
+                    data/
+                A5/
+                    src/
+                    data/
+        \end{verbatim}
+
+        \item
+                You will find several \texttt{.cpp} and \texttt{.hpp}
+                files in the \texttt{A0} subdirectory, as well as a
+                \texttt{Makefile}. Enter the subdirectory and type
+                \texttt{make}. The program should compile and you
+                should be left with an executable called
+                \texttt{paint488}.
+
+                The program is a very simple painting program that
+                allows you to draw rectangles, ovals and lines.
+
+        \item
+                To run the program type \texttt{./paint488} at the
+                command line.  To exit you must select
+                the ``Quit'' entry under the ``Application'' menu.
+
+                Modify \texttt{paintwindow.hpp} and
+                \texttt{paintwindow.cpp} so that a ``Quit'' button is
+                placed at the bottom of the window.  When this button
+                is pressed, the program terminates.
+
+        \item
+                Add a Clear entry to the Application menu.  This entry should
+                clear the screen.
+
+        \item
+                Add a new menu for selecting a colour.  This menu should
+                be labeled ``Colour'', and should appear between the
+                ``Tools'' and ``Help'' menus on the menu bar.  You should
+                be able to select the following colours: Black, Red,
+                Green, Blue.
+                Any subsequent draw of a rectangle or oval should fill
+                the object with the selected colour.
+
+                The default fill colour should be Black.
+
+                If you like, you can add additional fill colours, such
+                as Cyan, Magenta, Yellow, Purple, Orange,
+                White, but you will only be graded on Black, Red, Green,
+                and Blue.
+        \item
+                Change the Tools menu to use radiobuttons to select
+                between the drawing primitives.
+
+        \item
+                Add Help entries to Help menu for Rectangles and Ovals.
+
+        \item
+                Add the following keyboard shortcuts:
+                \begin{description}
+                        \item[C:] Clear
+                        \item[L:] Lines
+                        \item[R:] Rectangle
+                        \item[O:] Ovals
+                \end{description}
+		Note that lower case letters should
+		trigger the shortcuts.  We have already implemented
+		a keyboard shortcut for Quit; you should add your
+		keyboard shortcuts to the same handler.
+
+        \item
+                Write a Manual and a \texttt{README} for \texttt{paint488} 
+                explaining how to run and use it.  
+                The Manual should be submitted in hardcopy.
+                The \texttt{README} should be in the \texttt{cs488/handin/A0} 
+                directory but does not have to be handed in as a hardcopy.  
+        \item
+                Remove all unnecessary files (eg., 
+                        \texttt{*.bak, *{\char126}, core}, etc).
+
+    \item
+        From your \texttt{cs488/handin} directory
+        run ``\texttt{grsubmit A0}'' to create a checksum
+        for your assignment.   Note that \texttt{\CourseData/bin} should
+        already be in your search path.
+        You are to print out this checksum and
+        hand it in with your assignment.
+
+    \item
+        Hand in all the things mentioned in the {\bf Assignment Format} 
+        documentation that are applicable to this assignment.  Double
+        check the objectives to ensure that your assignment meets all of them.
+        Make sure you sign the objective sheet and fill in the requested 
+        information!
+
+\end{enumerate}
+
+\section{Extras}
+If you wish to add some extras (sorry, no bonus points) to the
+paint program, consider adding the following:
+\begin{itemize}
+	\item Rubberbanding.  When drawing an oval or a rectangle,
+		it is useful to draw the outline of the shape (or
+		even the shape itself) as you move the mouse after
+		the mouse button down.
+	\item Additional shapes.  Some additional shapes can be
+		drawn if you allow multiple mouse presses.
+		For example, you could draw a polyline (a sequence
+		of line segments), an arbitrary polygon, or B\'ezier
+		curves.
+	\item Updating/deleting elements.  You might want to change
+		the colour of one of the elements you've drawn.  Or
+		you might want to delete one of the elements.  This
+		would require find the element and either removing
+		it from the m\_shape list or modifying its colour.
+	\item Save/print.  You could add additional functionality
+		to either save the primitives to a file (to be
+		read in later) or to print the screen.
+\end{itemize}
+Note that except for the first one, each of these will likely require
+a significant amount of coding.
+
+\section{Donated Code}
+In \texttt{\CourseData/data/A0} you will find
+\begin{itemize}
+        \item \texttt{main.cpp} - The initial startup function
+          \texttt{main}.
+        \item \texttt{paintcanvas.hpp}, \texttt{paintcanvas.cpp} - The
+          canvas onto which the user can draw
+        \item \texttt{paintwindow.hpp}, \texttt{paintwindow.cpp} - The
+          main window of the application.
+        \item \texttt{Makefile} - used to compile your program.
+\end{itemize}
+These files have been copied to your \texttt{handin/A0} directory.
+
+\section{Deliverables}
+\begin{description}
+\item[Executables:] \hfill
+
+        \texttt{paint488}.  Be sure to place this in the correct
+        directory (under \texttt{A0}).
+
+\item[Source code:] \hfill
+        
+        All source code should be placed in \texttt{A0/src}. You
+        should not have to add any new files, but can if you wish. You
+        should not have to change the Makefile.
+       
+\item[Documentation:] \hfill
+
+        \texttt{README}.  Be sure to place this in the correct directory 
+        (under \texttt{A0}).
+\end{description}
+
+\newpage
+\section{Objectives: \hfill Assignment 0}
+
+\noindent{\large \bf Due: \AzeroDeadline.} \bigskip
+
+\noindent{\large \bf Name: \hrulefill} \bigskip
+
+\noindent{\large \bf UserID: \hrulefill} \bigskip
+
+\noindent{\large \bf Student ID: \hrulefill} \bigskip
+
+\begin{description}
+\large
+        \item[\_\_\_ 1:]{
+            The account is set up correctly.
+        }
+        \item[\_\_\_ 2:]{
+            The checksum program was run, and its output was printed 
+            and included in the submitted documentation.
+        }
+        \item[\_\_\_ 3:]{
+            The correct information was handed in as hardcopy, 
+                and a {\tt README} file exists in {\tt handin/A0}.
+        }
+        \item[\_\_\_ 4:]{
+                There is a ``Quit'' button at the bottom
+                of the window that terminates the program.
+        }
+        \item[\_\_\_ 5:]{
+                A Clear entry has been added to the File menu, which
+                clears the screen.
+        }
+        \item[\_\_\_ 6:]{
+                A Colour menu with radiobuttons
+		has been added with the listed colours.
+                After a colour is selected, any subsequent draws of
+                a rectangle or oval are filled with that colour,
+		and that colour's radiobutton is turned on.
+        }
+        \item[\_\_\_ 7:]{
+                The tools menu has been modified to use radiobuttons
+                to select between the graphics primitives.
+        }
+        \item[\_\_\_ 8:]{
+                Keyboard shortcuts have been added for 
+                Clear~(C), Lines~(L), Rectangles~(R), and Ovals~(O).
+		Lower case letters should trigger the shortcut.
+        }
+        \item[\_\_\_ 9:]{
+                Help entries for Rectangles and Ovals have been added.
+        }
+        \item[\_\_\_ 10:]{
+            There is a good manual page.
+        }
+\end{description}
+
+\input{declare}
