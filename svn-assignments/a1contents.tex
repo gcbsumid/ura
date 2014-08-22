@@ -160,24 +160,70 @@ the keyboard shortcut):
 In this course, user interfaces are written in \texttt{Qt}, a cross-platform
 application and UI framework for C++ developers. 
 
-In the C++ code you write for this assignment, you won't need to use
-any OpenGL commands apart from these:
+If you have opt to not to use qt, you will need to use the following OpenGL
+commands: \\
 
+\texttt{Shader Program}
 \begin{itemize}
-	\item \texttt{glEnable}, \texttt{glDisable}
-	\item \texttt{glBegin}, \texttt{glEnd}
-	\item \texttt{glVertex}
-	\item \texttt{glNormal} (maybe)
-	\item \texttt{glRotate}
-	\item \texttt{glScale}
-	\item \texttt{glTranslate}
-        \item \texttt{glDrawBuffer}
+    \item glCreateShader
+    \item glSourceShader
+    \item glCompileShader
+    \item glDeleteShader
+    \item glCreateProgram
+    \item glAttachShader
+    \item glLinkProgram
+    \item glDetachShader
+    \item glDeleteProgram
+    \item glValidateProgram
+    \item glUseProgram
+    \item glGetAttribLocation
+    \item glGetUniformLocation
+\end{itemize} 
+
+\texttt{Drawing Objects}
+\begin{itemize}
+    \item glGenVertexArrays
+    \item glBindVertexArray
+    \item glGenBuffers
+    \item glBindBuffer
+    \item glBufferData
+    \item glEnableVertexArray
+    \item glVertexAttribPointer
+    \item glDrawArrays
+    \item glDisableVertexArray
+    \item glVertexAttrib*
+    \item glUniform*
+\end{itemize}
+
+\texttt{Other}
+\begin{itemize}
+    \item glEnable
+    \item glDisable
+    \item glClear
+    \item glClearColor
 \end{itemize}
 
 (Of course, you may find that you will want to use additional OpenGL
 functionality to add extra features.
 Note that the \texttt{Matrix4x4} class stores its matrices in row-major
 order, but OpenGL expects matrices in column-major order.)
+
+If you have chosen to use qt, you will use the following objects which replaces
+some OpenGL calls and classes you have to make.
+
+For more information, go to \href{http://qt-project.org/doc/qt-5/index.html}{Qt
+Documentation}. \\
+
+\texttt{Classes}
+\begin{itemize}
+    \item QOpenGLBuffer (replaces gl(Gen|Bind)Buffer(data)) - Qt 5.1+
+    \item QOpenGLArrayBuffer (replaces gl(Gen|Bind)VertexArray) - Qt 5.1+
+    \item QGLBuffer (same as QOpenGLBuffer) - Qt 5.0
+    \item QGLShaderProgram (replaces all Shader Program calls)
+\end{itemize}
+
+Each class has replaces certain OpenGL calls while making the interface simpler.
+Please look at the documentation for the full class descriptions. \\
 
 \iffalse
 \subsection{Double buffering}
@@ -189,7 +235,7 @@ swapped with the ``front buffer'' when drawing is complete. Because
 the swapping happens quickly, the user never sees a half-complete rendering.
 
 The OpenGL command \texttt{glDrawBuffer} lets you choose which buffer
-to draw into.  The \texttt{gtk\-gl\-ext\-mm} widget allows you to swap the
+to draw into.  The \texttt{QGLWidget} allows you to swap the
 buffers, and this is already implemented for you in \texttt{viewer.cpp}
 \fi
 
@@ -208,26 +254,13 @@ events.  Here's a to-do list, with a suggested order that will help
 you make your way through the assignment.
 
 \begin{itemize}
-	\item Write a function to draw a unit cube using OpenGL.  You
-		  can test it by modifying \texttt{Viewer}'s
-                  \texttt{on\_\-expose\_\-event} member function to draw a hard-coded
-		  set of unit cubes.  There are two ways to draw cubes:
+	\item Write a function to draw a unit cube using OpenGL. 
 
-		\begin{itemize}
-		  \item If you're already familiar with OpenGL, you can write a
-		  	single \texttt{drawCube} function that draws a cube at 
-			the origin,
-			  and use \texttt{glPushMatrix}, \texttt{glPopMatrix}, 
-			and
-			  \texttt{glTranslate} to place each cube in the game.
-		  \item You can also just write a \texttt{drawCube} function
-		  	that takes the cube's location as a parameter and draws
-			the cube directly in that location.
-		\end{itemize}
-
-		Note that although the GLUT library includes a function to draw
-		a unit cube, you can't use it in this assignment.  Your cube
-		should be composed from calls to \texttt{glVertex}.
+            If you're already familiar with Modern OpenGL, you can
+            write a single cube to a Vertex Buffer Object (VBO). You
+            would then create a \texttt{Matrix4x4} model matrix for
+            each cube and use the matrix functions to translate,
+            rotate, scale this model. 
 
 	\item In your render function, draw a U-shaped border for
 	      the well out of cubes.
@@ -250,8 +283,10 @@ you make your way through the assignment.
 		  Each piece type should be drawn in a different colour;
 		  the colours are up to you.
 
-	\item Hook up a simple timer event (using the \texttt{Glib::SignalTimeout::connect}
-		  method) that calls down to the game's
+              Note that color manipulation happens in the fragment shader.
+
+	\item Hook up a simple timer (using the \texttt{QTimer}
+		  class) that calls down to the game's
 		  \texttt{tick} method and re-renders.  You should be able to see
 		  pieces falling.
 
@@ -272,13 +307,17 @@ The skeleton program comes with the following files:
           (menubars, etc.) is in these two files.
 	\item \texttt{game.cpp}, \texttt{game.hpp} -- An engine that implements
 		the core of the falling blocks game.
-	\item \texttt{algebra.cpp}, \texttt{algebra.hpp} -- Some basic geometry
-		and colour classes useful throughout the course.
+        \item \texttt{game488.pro} -- Used to create a Makefile that includes
+            all qt libraries
 	\item \texttt{Makefile} -- Used to compile the program with \texttt{make}.
+        \item \texttt{shader.vert} -- Vertex Shader used to determine the
+            position of every vertex
+        \item \texttt{shader.frag} -- Fragment Shader used to determine the
+            color of each pixel
 \end{itemize}
 
 You should be able to get the skeleton program running using the
-commands \texttt{make; ./game488}.
+commands \texttt{qmake game488.pro; make; ./game488}.
 
 \section{Deliverables}
 

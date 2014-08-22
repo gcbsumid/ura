@@ -92,7 +92,7 @@ having line segments ``wrap around''.
 \section{The Interface}
 
 As with the previous assignments, this assignment is implemented in
-C++ with \texttt{gtkmm}. We have provided some code for you that sets
+C++ with \texttt{Qt}. We have provided some code for you that sets
 up a window and draws an example set of lines for you. You will need
 to add the parts that do all the 3D transformations, projections,
 etc.
@@ -102,19 +102,14 @@ We suggest that you add a few matrices to \texttt{Viewer} (in
 to you. At the very least, you will need a modelling matrix and a
 viewing matrix.
 
-You should implement the stub functions already found in
-\texttt{Viewer} and perhaps add some more of your own. You will also
-want to implement the missing matrix functions in \texttt{a2.hpp} and
-\texttt{a2.cpp}, and use these in your \texttt{Viewer}.
-
 Your viewer should have an on-screen indication of where the near and
 far planes are located (from a call to
-\texttt{Viewer::set\_perspective}). Simple textual Gtk labels are
+\texttt{Viewer::set\_perspective}). Simple textual QLabels are
 fine. Document how you display this in your manual.
 
 \section{Drawing lines}
 
-In {\tt draw.cpp}, we provide the following C++ routines to draw lines and
+In {\tt Viewer.cpp}, we provide the following C++ routines to draw lines and
 set colours in an OpenGL window:
 \begin{itemize}
   \item {\tt draw\_init(int width, int height)} --- call this before
@@ -124,12 +119,10 @@ set colours in an OpenGL window:
     segment.  {\tt p} and {\tt q} are in window coordinates.
   \item {\tt set\_colour(const Colour\& col)} --- set the colour of subsequent
     calls to \texttt{draw\_line}.
-  \item {\tt draw\_complete()} --- call this after you are done
-    drawing line segments.
 \end{itemize}
 
 These routines use OpenGL.  Your assignment should not contain any
-further OpenGL calls.  Further, you should not modify {\tt draw.cpp}.
+further OpenGL calls.  Further, you should not modify {\tt these functions}.
 You should call these routines from \texttt{viewer.cpp}
 with the GL widget active. There is already example code in
 \texttt{viewer.cpp} that does this for you.
@@ -307,14 +300,10 @@ volume.
 \section{Donated Code}
 In {\tt \CourseData/data/A2}, you will find
 \begin{itemize}
-        \item {\tt draw.cpp} -- The drawing routines.
-        \item {\tt appwindow.cpp} -- A window to which you may add
+        \item {\tt AppWindow.cpp} -- A window to which you may add
           widgets.
-        \item {\tt viewer.cpp} -- A widget that will display your
+        \item {\tt Viewer.cpp} -- A widget that will display your
           rendering. This is where the core part of your code will go.
-	\item {\tt algebra.cpp} -- Routines for geometry, lumpy toads,
-          etc.
-	\item {\tt a2.cpp} -- Matrix routines you should implement and use.
         \item {\tt Makefile} -- Used to build your code with \texttt{make} 
 \end{itemize}
 These files have been copied to your \texttt{handin/A2/src} directory.

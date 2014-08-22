@@ -13,12 +13,12 @@
 #define GL_MULTISAMPLE 0x809D
 #endif
 
-Viewer::Viewer(const QGLFormat& format, QWidget *parent) 
-    : QGLWidget(format, parent) 
+Viewer::Viewer(const QGLFormat& format, QWidget *parent)
+    : QGLWidget(format, parent)
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
     , mVertexBufferObject(QOpenGLBuffer::VertexBuffer)
     , mVertexArrayObject(this)
-#else 
+#else
     , mVertexBufferObject(QGLBuffer::VertexBuffer)
 #endif
 {
@@ -55,7 +55,7 @@ void Viewer::initializeGL() {
     }
 
     glClearColor(0.7, 0.7, 1.0, 0.0);
-    
+
     if (!mProgram.addShaderFromSourceFile(QGLShader::Vertex, "shader.vert")) {
         std::cerr << "Cannot load vertex shader." << std::endl;
         return;
@@ -72,7 +72,7 @@ void Viewer::initializeGL() {
     }
 
     float triangleData[] = {
-        //  X     Y     Z 
+        //  X     Y     Z
          0.0f, 0.0f, 0.0f,
          1.0f, 0.0f, 0.0f,
          0.0f, 1.0f, 0.0f,
@@ -85,26 +85,26 @@ void Viewer::initializeGL() {
 
     mVertexBufferObject.create();
     mVertexBufferObject.setUsagePattern(QOpenGLBuffer::StaticDraw);
-#else 
+#else
 
     /*
      * if qt version is less than 5.1, use the following commented code
-     * instead of QOpenGLVertexVufferObject. Also use QGLBuffer instead of 
+     * instead of QOpenGLVertexVufferObject. Also use QGLBuffer instead of
      * QOpenGLBuffer.
      */
     uint vao;
-     
+
     typedef void (APIENTRY *_glGenVertexArrays) (GLsizei, GLuint*);
     typedef void (APIENTRY *_glBindVertexArray) (GLuint);
-     
+
     _glGenVertexArrays glGenVertexArrays;
     _glBindVertexArray glBindVertexArray;
-     
+
     glGenVertexArrays = (_glGenVertexArrays) QGLWidget::context()->getProcAddress("glGenVertexArrays");
     glBindVertexArray = (_glBindVertexArray) QGLWidget::context()->getProcAddress("glBindVertexArray");
-     
+
     glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);    
+    glBindVertexArray(vao);
 
     mVertexBufferObject.create();
     mVertexBufferObject.setUsagePattern(QGLBuffer::StaticDraw);
@@ -129,17 +129,17 @@ void Viewer::initializeGL() {
 void Viewer::paintGL() {
     // Clear the screen
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0))
     mVertexArrayObject.bind();
-#else 
+#else
     QGLBuffer mVertexBufferObject.bind();
-#endif    
-    
+#endif
+
 
     for (int i = 0; i < 4; i++) {
-        
+
         mProgram.setUniformValue(mMvpMatrixLocation, getCameraMatrix() * mModelMatrices[i]);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
