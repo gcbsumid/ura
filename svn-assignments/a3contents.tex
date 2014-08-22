@@ -491,26 +491,20 @@ just hints that students in past terms have found helpful.
 		have a single light source, placed at the eye.
 		This will allow you to decide more easily if
 		the shading of the puppet looks correct.
-	\item Normals, Colours, Vertices.  
-		When you give the {\tt glVertex} command,
-		OpenGL assigns the normal specified by the
-		most recently issued {\tt glNormal} command;
-                likewise for {\tt glColor}, which can be set up
-                to modify the diffuse reflection colour when
-                lighting is enabled.
-
-		Thus, when specifying the
-		normals and colours of the vertices, you must
-		specify them BEFORE you issue the {\tt glVertex}
-		command.  
+        \item 3D Picking. 3D picking would require you to pass an index for each
+                object that you draw. In the Fragment Shader, You then create a
+                texture and write the index to the pixel location on that
+                texture. After the entire scene is drawn, you get the mouse
+                position and get the index from the texture that was genereated
+                with the indices. 
+                For more information, go to this
+                \href{http://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-an-opengl-hack/}{OpenGL tutorial}.
 \end{itemize}
 
-You are required to use a {\em display list} to render the sphere.
-A display list is  way of storing all vertices and normals as they
-are calculated so that OpenGL can reuse them rather than have to
-recalculate (and retransmit) them to OpenGL.   This is sometimes
-called ``retained mode'', as opposed to the usual way of using
-OpenGL, which is ``immediate mode''.
+You are required to use a {\em Vertex Buffer Object} to render the sphere. A
+Vertex Buffer Object is a way of storing all vertices, normals, and color as
+they are calculated so that OpenGL can reuse them rather than have to
+recalculate (and retransmit) them to OpenGL. 
 
 Although you may use the {\tt gluSphere} command if you want, you may
 want to generate the sphere yourself using sines and
@@ -523,8 +517,7 @@ still allowing for smooth motion.
 \section{Donated Code}
 In \texttt{\CourseData/data/A3} you will find
 \begin{itemize}
-\item {\tt appwindow.cpp} -- The application window.
-\item {\tt algebra.cpp} -- Routines for geometry, ferrets, etc.
+\item {\tt AppWindow.cpp} -- The application window.
 \item {\tt main.cpp} -- The program entry point.
 \item {\tt material.cpp} -- Classes and functions for manipulating
   materials.
@@ -534,11 +527,13 @@ In \texttt{\CourseData/data/A3} you will find
   hierarchies.  The layout of these classes should provide
   some ideas about how to organize your code.
 \item {\tt scene\_lua.cpp} -- The Lua/C++ interface.
-\item {\tt viewer.cpp} -- The GTK+ OpenGL viewer widget.
+\item {\tt Viewer.cpp} -- The QGLWidget OpenGL viewer widget.
 \item {\tt Makefile} -- Used to build the program.
 \item {\tt a3mark.lua} -- A Lua script to test your implementation.
 \item {\tt a3mark.png} -- An image showing what the screen output
   of {\tt a3mark.lua} should look like.
+\item {\tt shader.vert} -- Simple Vertex Shader
+\item {\tt shader.frag} -- Simple Fragment Shader
 \end{itemize}
 These files have been copied to your \texttt{handin/A3} directory.
 You should also use {\tt trackball.c} which you can find
